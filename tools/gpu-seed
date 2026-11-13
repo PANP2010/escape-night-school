@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Sourced by tools/gpu after SSH is ready. gpu_api owns the fixed instance and timeouts.
+gpu_seed_browsers() {
+  local manifest="$GPU_GAME/node_modules/playwright-core/browsers.json"
+  [[ -f $manifest ]] || return 0
+  local cache_root=${PLAYWRIGHT_BROWSERS_PATH:-${XDG_CACHE_HOME:-$HOME/.cache}/ms-playwright}
+  [[ $cache_root != 0 ]] || cache_root="$GPU_GAME/node_modules/playwright-core/.local-browsers"
+  local -a folders=()
+  local listing
+  listing=$(python3 - "$GPU_GAME" <<'PY'
+import json, pathlib, re, sys
+game = pathlib.Path(sys.argv[1])
+core = game / 'node_modules/playwright-core'
+version = json.loads((core / 'package.json').read_text())['version']
+lock = json.loads((game / 'package-lock.json').read_text())
+if lock['packages']['node_modules/playwright-core']['version'] != version:
+    sys.exit('gpu: local Playwright differs from lockfile; run npm ci before GPU acceptance')
+for browser in json.loads((core / 'browsers.json').read_text())['browsers']:
+    if browser['name'] in ('chromium', 'chromium-headless-shell', 'ffmpeg'):
+        revision = str(browser['revision'])
+        if not re.fullmatch(r'[0-9]+', revision):
+            sys.exit('gpu: invalid local browser revision')
+        print(browser['name'].replace('-', '_') + '-' + revision)
+PY
+  ) || return 1
+  mapfile -t folders <<< "$listing"
+  [[ ${#folders[@]} == 3 ]] || { echo 'gpu: incomplete Playwright browser manifest' >&2; return 1; }
+  local folder check=''
+  for folder in "${folders[@]}"; do
+    if [[ ! -f $cache_root/$folder/INSTALLATION_COMPLETE ]]; then
+      echo 'gpu: complete local browser cache unavailable; using remote installer'
+      return 0
+    fi
+    check+="test -f /home/ubuntu/.cache/ms-playwright/$folder/INSTALLATION_COMPLETE && "
+  done
+  local remote_status
+  remote_status=$(gpu_api ssh-short "${check}echo present || echo missing") || return 1
+  if [[ $remote_status == present ]]; then
+    echo 'gpu: matching remote browser cache already installed'
+    return 0
+  fi
+  echo 'gpu: seeding matching Playwright browser cache from local installation'
+  # Do not import local link ownership or dependency-validation results onto another host.
+  tar -czf "$GPU_TMP/browsers.tar.gz" -C "$cache_root" \
+    --exclude=.links --exclude=DEPENDENCIES_VALIDATED -- "${folders[@]}"
+  gpu_api cp-seed "$GPU_TMP/browsers.tar.gz" :/home/ubuntu/escape-gpu-browsers.tar.gz
+  gpu_api ssh-short 'mkdir -p /home/ubuntu/.cache/ms-playwright && tar -xzf /home/ubuntu/escape-gpu-browsers.tar.gz -C /home/ubuntu/.cache/ms-playwright && rm -f /home/ubuntu/escape-gpu-browsers.tar.gz'
+}
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  echo 'gpu-seed is a helper sourced by tools/gpu; use tools/gpu run -- <command>' >&2
+  exit 2
+fi

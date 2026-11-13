@@ -1,0 +1,140 @@
+/* One source-relative shoulder foreground. Only opacity/transform change; no canvas/filter/readback. */
+.capture-presentation {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: layout style paint;
+}
+.capture-presentation[hidden] { display: none; }
+.capture-veil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, #02050500 22%, #04070670 64%, #010303 100%);
+}
+.capture-cover { position: absolute; inset: 0; background: #010303; opacity: 0; }
+.capture-edge { position: absolute; inset: 0; }
+.capture-presentation[data-side='left'] .capture-edge { transform: scaleX(-1); }
+.capture-pressure {
+  position: absolute;
+  right: -1vw;
+  bottom: max(6vh, env(safe-area-inset-bottom));
+  width: clamp(180px, 31vw, 420px);
+  height: clamp(120px, 28vh, 240px);
+  opacity: 0;
+}
+.capture-sleeve {
+  position: absolute;
+  right: -24%; bottom: -14%;
+  width: 94%; height: 65%;
+  border-radius: 52% 13% 20% 34%;
+  background: linear-gradient(150deg, #202624, #080c0c 38%, #020404 72%);
+  box-shadow: inset 0 2px 0 #a4ada42a;
+  transform: rotate(-21deg);
+}
+.capture-palm {
+  position: absolute;
+  right: 48%; bottom: 39%;
+  width: 34%; height: 34%;
+  border-radius: 41% 34% 45% 44%;
+  background: linear-gradient(155deg, #424943, #1a201d 42%, #070c0a);
+  box-shadow: inset 1px 2px 0 #bdc3b12e;
+  transform: rotate(-15deg);
+}
+.capture-finger {
+  position: absolute;
+  right: 63%; bottom: 57%;
+  width: 25%; height: 8%;
+  border-radius: 55% 35% 35% 55%;
+  background: linear-gradient(#414940, #171e19 55%, #0a100c);
+  transform: rotate(-9deg);
+}
+.capture-finger:nth-child(4) { bottom: 49%; right: 66%; width: 27%; transform: rotate(-15deg); }
+.capture-finger:nth-child(5) { bottom: 41%; right: 65%; width: 25%; transform: rotate(-22deg); }
+.capture-finger:nth-child(6) { bottom: 34%; right: 62%; width: 20%; transform: rotate(-29deg); }
+.capture-status {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* The server has already locked movement; show the penalty's existing readable HUD after contact. */
+body.capture-caught #down-overlay,
+body.capture-caught #crosshair,
+body.capture-caught #prompt { visibility: hidden; }
+/* Let the single contact beat read before the normal penalty HUD returns. Keep captions, rescue,
+   transitions and any actively focused control available; no focus or accessibility state changes. */
+:is(#objective, #goal-arrow, #hint, #room-code, #battery, #stamina, #keys, #chat-log,
+    #touch-btns, #touch-base, #settings-open, #map) { transition: opacity 160ms ease-out; }
+body.capture-caught :is(#objective, #goal-arrow, #hint, #room-code, #battery, #stamina, #keys, #chat-log,
+    #touch-btns, #touch-base),
+body.capture-caught :is(#settings-open, #map):not(:focus-within) { opacity: 0; }
+/* Keep introductory copy from sharing the penalty countdown's upper-centre space on small screens. */
+body.capture-penalty #banner,
+body.capture-penalty #tut { visibility: hidden; }
+/* A snapshot can enter the down state without replaying the contact beat. Reserve the same safe
+   reading area for both paths, including names long enough to wrap on a landscape phone. */
+body:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #down-overlay {
+  padding: calc(max(12px, env(safe-area-inset-top)) + clamp(48px, 10vh, 88px))
+    max(20px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom))
+    max(20px, env(safe-area-inset-left));
+  gap: clamp(6px, 2vh, 12px);
+  font-size: clamp(14px, 1.9vw, 18px);
+  line-height: 1.5;
+  letter-spacing: clamp(.5px, .15vw, 2px);
+  text-align: center;
+}
+body:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #down-overlay > div {
+  min-width: 0;
+  max-width: min(100%, 38rem);
+  overflow-wrap: anywhere;
+}
+body:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #down-overlay .t {
+  font-size: clamp(20px, 3.6vw, 32px);
+  line-height: 1.35;
+  letter-spacing: clamp(1px, .3vw, 4px);
+  text-wrap: balance;
+}
+body:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #down-overlay .n {
+  display: inline-block;
+  margin-inline: .12em;
+  font-size: clamp(32px, 10vh, 50px);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+/* Downed players cannot use movement or world actions. Keep chat and settings available while
+   clearing objectives, the notebook and gauges from the title/countdown area; revive restores them. */
+body.touch:is(.capture-penalty, :has(#down-overlay:not([hidden])))
+  :is(#objective, #goal-arrow, #hint, #room-code, #host-status, #broadcast-status, #battery,
+      #stamina, #keys, #crosshair, #prompt, #banner, #tut, #team, #map, #touch-map,
+      #touch-btns, #touch-base, .story-view, #update-available.in-session) { visibility: hidden; }
+body.touch:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #hud #subtitle {
+  bottom: calc(max(12px, env(safe-area-inset-bottom)) + 64px);
+  padding: 5px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  letter-spacing: .5px;
+}
+body.level-handoff .capture-presentation { visibility: hidden; }
+@media (max-height: 500px) {
+  .capture-pressure { width: clamp(160px, 26vw, 260px); height: 30vh; bottom: 4vh; }
+}
+@media (max-height: 320px) {
+  body.touch:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #down-overlay {
+    padding-top: calc(max(8px, env(safe-area-inset-top)) + 48px);
+    gap: 5px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  body.touch:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #down-overlay .t {
+    font-size: clamp(18px, 3.6vw, 22px);
+  }
+  body.touch:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #down-overlay .n { font-size: 28px; }
+  body.touch:is(.capture-penalty, :has(#down-overlay:not([hidden]))) #hud #subtitle { visibility: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .capture-presentation, .capture-presentation * { animation: none; transition: none; }
+}

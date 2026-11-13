@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <title>逃离夜校</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="./src/style.css" />
+  <link rel="stylesheet" href="./src/updateNotice.css" />
+  <link rel="stylesheet" href="./src/lobby.css" />
+  <link rel="stylesheet" href="./src/records.css" />
+  <link rel="stylesheet" href="./src/feedback.css" />
+<style id="maintenance-style">
+#lobby > #shutdown-notice { box-sizing: border-box; width: 100%; max-width: 1080px; flex-shrink: 0; padding: 12px 16px; background: #271c12; border: 1px solid #bc9061; color: #f5dfb6; font: 14px/1.7 system-ui, sans-serif; overflow-wrap: anywhere; }
+#shutdown-notice strong { color: #ffe0a3; }
+#shutdown-notice a { color: #a7dcff; text-decoration: underline; }
+#shutdown-notice p { margin: 4px 0; }
+</style>
+</head>
+<body>
+  <div id="lobby">
+    <section id="shutdown-notice" role="note" aria-label="云端停止维护通知">
+      <strong>云端停止维护通知 · 2026-11-13（历史公告）</strong>
+      <p>迫于财务压力和强权压力，本云端服务停止维护并准备下线。旧在线地址后续可能无法访问。原公告提供的 <a href="/downloads/">本地版下载</a> 为旧版；源码与后续说明见 <a href="https://github.com/PANP2010/escape-night-school" target="_blank" rel="noopener">GitHub</a>。</p>
+      <p>服务迁移时，原主机仍提供原版 v0.6.2 安装包，包含旧角色名，请勿将其误认为匿名新版或再次公开分发。GitHub 上的旧安装包已撤下；截至 2026-11-13，匿名化安装包尚未重建。此说明针对迁移时的旧包，不代表从本匿名源码重新构建的版本；新包请另行核验并注明版本。</p>
+      <p>Windows / macOS 可离线单人和局域网开房；Android 仍需连接自建或局域网服务器。安装包与服务器开发快照可能不同。玩家反馈、榜单及运行日志仅由维护者私有备份，不随源码公开。请勿将私有迁移备份上传至公开下载页。</p>
+    </section>
+    <header class="lobby-heading">
+      <div><h1>逃离夜校</h1><p class="sub">午夜 00:00 · 找到同学，一起离开</p></div>
+      <div class="lobby-connection-area"><div id="lobby-records" aria-label="游玩记录"><button id="feedback-open" type="button" aria-haspopup="dialog" aria-controls="feedback-dialog">意见箱</button><a id="native-downloads" href="/downloads/">下载本地版</a></div><p id="lobby-connection" role="status" aria-live="polite">正在连接大厅……</p><button id="reconnect-lobby" type="button" hidden>刷新重连</button></div>
+    </header>
+    <div id="entry">
+      <section class="lobby-actions" aria-label="创建或按码加入房间">
+        <label class="name-field" for="name"><span>你的昵称</span><input id="name" maxlength="16" autocomplete="nickname" placeholder="无名同学" /></label>
+        <fieldset class="create-options">
+          <legend>创建你的教室</legend>
+          <label class="difficulty-label" for="difficulty">今夜的难度</label>
+          <select id="difficulty" aria-describedby="difficulty-hint"></select>
+          <p id="difficulty-hint" class="lobby-note"></p>
+          <label class="guidance-option" for="guidance"><input id="guidance" type="checkbox" checked aria-describedby="guidance-hint" /><span>开启目标指引</span></label>
+          <p id="guidance-hint" class="lobby-note">显示目标箭头和地图标记，本局不计入速通排行。创建后整局固定。</p>
+          <label class="difficulty-label" for="mode-selector">玩法模式</label>
+          <select id="mode-selector" aria-describedby="mode-hint">
+            <option value="campaign">剧情模式</option>
+            <option value="royale">大逃杀 · 开发中</option>
+          </select>
+          <p id="mode-hint" class="lobby-note"></p>
+          <label class="guidance-option" for="named-monitors"><input id="named-monitors" type="checkbox" disabled aria-describedby="named-monitors-hint" /><span>开启人名与 Boss 彩蛋</span></label>
+          <p id="named-monitors-hint" class="lobby-note">完成无人生还难度后解锁。</p>
+          <div class="visibility-options">
+            <label><input id="visibility-public" type="radio" name="room-visibility" value="public" checked /><span>公开</span></label>
+            <label><input id="visibility-private" type="radio" name="room-visibility" value="private" /><span>私密</span></label>
+          </div>
+          <p id="visibility-hint" class="lobby-note">所有同学都能在列表中找到你</p>
+          <label class="late-join-option" for="allow-late-join"><input id="allow-late-join" type="checkbox" checked /><span>开局后允许观察加入</span></label>
+          <p class="lobby-note late-join-note">观察者从下一关开始参与</p>
+          <button id="create" type="button">创建房间</button>
+        </fieldset>
+        <div class="code-entry">
+          <label for="code">有房间码？公开、私密都可加入</label>
+          <div class="row"><input id="code" maxlength="16" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="房间码" aria-label="四位房间码" /><button id="join" type="button">加入</button></div>
+        </div>
+      </section>
+      <section class="public-lobby" aria-labelledby="public-rooms-title">
+        <div class="public-lobby-heading">
+          <div><h2 id="public-rooms-title">公开的教室</h2><p class="lobby-note">免房间码组队 · 每 3 秒刷新</p></div>
+          <button id="quick-join" type="button">快速加入</button>
+        </div>
+        <p class="quick-join-hint">按所选难度和指引设置寻找教室，没有就新建公开房</p>
+        <div class="rooms-toolbar"><p id="rooms-status" role="status" aria-live="polite">正在加载公开房间……</p><button id="refresh-rooms" type="button">刷新</button></div>
+        <ul id="public-rooms" aria-label="公开房间列表" aria-busy="true"></ul>
+        <p id="rooms-empty" hidden>走廊里还没有同学。<br />点「快速加入」或创建公开房，等大家来找你。</p>
+        <p class="room-latency-note">延迟为当前连接到大厅服务器的往返耗时</p>
+      </section>
+    </div>
+    <div id="waiting" hidden>
+      <p class="sub">等待大厅 · 房间码 <b id="wait-code"></b> <button id="copy-code">复制房间码</button></p>
+      <p id="wait-visibility"></p>
+      <ul id="wait-members"></ul>
+      <button id="start">开始</button>
+      <p id="wait-hint"></p>
+    </div>
+    <p id="lobby-action-status" role="status" aria-live="polite"></p>
+    <p id="err" role="alert" aria-live="assertive"></p>
+  </div>
+  <div id="hud" hidden>
+    <div id="room-code"></div>
+    <div id="hint">点击画面锁定鼠标 · WASD 移动 · Shift 跑 · C 蹲 · F 手电 · R 换电池 · E 交互（队友倒地时按住 E 搀扶）· Q 标记 · G 目标箭头 · M 平面图 · J 线索记录 · Tab 队伍 · Enter 聊天 · H 操作提示</div>
+    <div id="stamina"><div id="stamina-fill"></div></div>
+    <div id="battery"></div>
+    <div id="keys"></div>
+    <div id="objective" hidden><div class="h"></div><div class="g"></div><div class="got"></div><div class="tip"></div></div>
+    <div id="goal-arrow" hidden><div class="ar"></div><span class="d"></span></div>
+    <div id="banner" hidden><div class="t"></div><div class="g"></div></div>
+    <div id="tut" hidden><span class="n"></span><span class="x"></span></div>
+    <div id="chat-log"></div>
+    <input id="chat-input" maxlength="200" hidden />
+    <div id="crosshair">·</div>
+    <div id="prompt"></div>
+    <div id="hide-overlay" hidden></div>
+    <div id="subtitle"></div>
+    <section id="rollcall-panel" hidden aria-label="点名册" aria-modal="true" role="dialog">
+      <header><div><div class="rt">教务处 · 点名册</div><div id="rollcall-stage"></div></div><button id="rollcall-close" type="button" aria-label="关闭点名册">×</button></header>
+      <p class="rh">点按队员姓名，将全队名字划掉。</p>
+      <ul id="rollcall-list"></ul>
+    </section>
+    <section id="finale-result" hidden aria-label="逃出校门结算" aria-modal="true" role="dialog">
+      <div class="ft">夜校 · 结局</div>
+      <div id="finale-summary"></div>
+      <ul id="finale-members"></ul>
+      <button id="finale-restart" type="button" hidden>同一关重玩</button>
+      <p id="finale-restart-hint"></p>
+    </section>
+    <div id="fade-overlay" hidden></div>
+    <div id="blink-overlay" hidden></div>
+    <div id="revive-ring" hidden></div>
+    <div id="team" hidden></div>
+    <div id="spec-bar" hidden></div>
+    <div id="down-overlay" hidden><div class="t">你被角色074抓住了</div><div>倒地中，<span class="n">30</span> 秒内无人搀扶就出局</div></div>
+  </div>
+  <div id="map" hidden><div class="mh"><b class="mt"></b><span class="mk"></span><button type="button" class="mb arrow"></button><button type="button" class="mb close">关闭</button></div><canvas></canvas><div class="ml"><i class="me"></i>你　<i class="mate"></i>队友　<b>✓</b> 去过　<span class="exit-legend"><i class="exit"></i>出口　</span><i class="door"></i>门　<i class="lock"></i>锁着　<b class="x">×</b> 堵死</div></div>
+  <div id="rotate">请横屏游玩<small>把手机横过来</small></div>
+  <dialog id="feedback-dialog" aria-labelledby="feedback-title">
+    <header><h2 id="feedback-title">意见箱</h2><button id="feedback-close" type="button">返回</button></header>
+    <form id="feedback-form" novalidate>
+      <label class="feedback-label" for="feedback-kind">类型</label>
+      <select id="feedback-kind" name="kind">
+        <option value="bug">问题反馈</option>
+        <option value="idea">玩法建议</option>
+        <option value="event">活动报名</option>
+        <option value="other">其他</option>
+      </select>
+      <label class="feedback-label" for="feedback-text">内容</label>
+      <textarea id="feedback-text" name="text" maxlength="500" rows="5" placeholder="遇到了什么问题，或者希望夜校变成什么样？"></textarea>
+      <p id="feedback-counter" class="feedback-counter" aria-live="polite">已输入 0/500</p>
+      <label class="feedback-label" for="feedback-name">昵称（可选）</label>
+      <input id="feedback-name" name="name" maxlength="16" autocomplete="nickname" />
+      <label class="feedback-label" for="feedback-contact">联系方式（可选）</label>
+      <input id="feedback-contact" name="contact" maxlength="64" autocomplete="off" placeholder="邮箱 / QQ，方便回复你" />
+      <p id="feedback-status" class="feedback-status" role="status" aria-live="polite"></p>
+      <div class="feedback-actions"><button id="feedback-submit" type="submit">提交</button></div>
+    </form>
+    <p class="feedback-note">每 10 分钟最多提交 3 条。反馈会由维护者定期查看，不会公开展示。</p>
+  </dialog>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

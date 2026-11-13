@@ -1,0 +1,130 @@
+/* Public lobby only. Keep the existing blackboard, release notes and all in-game HUD styles. */
+#lobby { justify-content: flex-start; gap: 16px; padding: max(28px, env(safe-area-inset-top)) max(36px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(36px, env(safe-area-inset-left)); overflow-y: auto; overflow-x: hidden; touch-action: pan-y; overscroll-behavior: contain; }
+.lobby-heading, #entry, #lobby > #updates, #waiting, #lobby-action-status, #lobby > #err { width: 100%; max-width: 1080px; box-sizing: border-box; flex-shrink: 0; }
+.lobby-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+#lobby h1 { margin: 0; font-size: clamp(32px, 4.5vw, 54px); letter-spacing: 8px; }
+#lobby .lobby-heading .sub { margin: 8px 0 0; font-size: 14px; letter-spacing: 3px; }
+.lobby-connection-area { text-align: right; }
+#lobby-connection { margin: 0; font-size: 13px; line-height: 1.6; color: #b8cebd; font-variant-numeric: tabular-nums; }
+#lobby-connection[data-state="disconnected"] { color: #ff9c8b; }
+/* Primary actions lead (name → room code → create); the detailed settings follow the create button, and the room panel keeps its own height. */
+#entry { display: grid; grid-template-columns: 270px minmax(0, 1fr); align-items: start; gap: 28px; padding: 0; border: 0; }
+.lobby-actions { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.name-field { order: -2; }
+.code-entry { order: -1; }
+.name-field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #c8cfbf; letter-spacing: 1px; }
+#lobby #name { width: 100%; min-height: 44px; box-sizing: border-box; padding: 8px 12px; font-size: 16px; text-align: left; letter-spacing: 1px; border: 1px solid #d9dfc74d; background: #0b1c1666; }
+.create-options { display: flex; flex-direction: column; margin: 0; padding: 10px 12px 12px; min-width: 0; border: 1px solid #d9dfc74d; }
+.create-options legend { padding: 0 6px; font-size: 13px; letter-spacing: 2px; color: #e4ddc7; }
+.visibility-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.visibility-options label { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; border: 1px solid #d9dfc72e; color: #bac8b7; font-size: 15px; cursor: pointer; }
+.visibility-options label:has(input:checked) { background: #a9c9a91f; color: #e9eedb; border-color: #a9c9a9a3; }
+#lobby input[type="radio"], #lobby input[type="checkbox"] { flex: 0 0 auto; width: 17px; height: 17px; min-height: 0; padding: 0; margin: 0; border: 0; box-shadow: none; accent-color: #9bc8a7; }
+#lobby .lobby-note { margin: 7px 0 0; color: #b7c4b1; font-size: 12px; line-height: 1.5; letter-spacing: 0; }
+#visibility-hint { min-height: 18px; }
+.late-join-option, .guidance-option { display: flex; align-items: center; gap: 7px; margin-top: 7px; min-height: 44px; font-size: 14px; color: #dedecb; cursor: pointer; }
+.guidance-option { margin-top: 8px; }
+#lobby #guidance-hint { margin: 0 0 10px 24px; }
+#lobby .late-join-note { margin: 0 0 10px 24px; }
+#lobby button { min-height: 44px; padding: 9px 16px; box-sizing: border-box; transform: none; font-size: 15px; line-height: 1.4; box-shadow: 0 2px 5px #0004; }
+#lobby button:nth-of-type(even), #lobby .row button { transform: none; }
+#lobby button::before { display: none; }
+#lobby button:hover { transform: none; }
+#lobby button:focus-visible, #lobby input:focus-visible, .visibility-options label:has(input:focus-visible), .late-join-option:has(input:focus-visible) { outline: 2px solid #b6ebc6; outline-offset: 3px; }
+#lobby button:disabled { opacity: .45; cursor: not-allowed; }
+#lobby #create { order: -1; width: 100%; margin: 2px 0 12px; }
+.code-entry > label { display: block; margin-bottom: 8px; font-size: 12px; color: #c6cebb; }
+#lobby .code-entry .row { gap: 12px; justify-content: space-between; }
+#lobby #code { flex: 1 1 auto; min-width: 0; max-width: 170px; min-height: 44px; box-sizing: border-box; font-size: 20px; line-height: 1.2; }
+#lobby #join { flex: 0 0 70px; padding-inline: 12px; }
+.public-lobby { min-width: 0; display: flex; flex-direction: column; padding: 18px 20px 12px; box-sizing: border-box; background: #0a1a1559; border: 1px solid #d9dfc73d; }
+.public-lobby-heading { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+#public-rooms-title { margin: 0; font-size: 23px; font-weight: 600; letter-spacing: 4px; }
+#lobby .public-lobby-heading .lobby-note { margin: 3px 0 0; }
+#lobby #quick-join { flex: 0 0 auto; background: #cce0bc; color: #193023; font-weight: 600; }
+.quick-join-hint { margin: 10px 0 0; color: #c4d0bd; font-size: 12px; line-height: 1.6; }
+.rooms-toolbar { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin: 5px 0; }
+#rooms-status { margin: 0; font-size: 13px; color: #bbc7b6; line-height: 1.5; }
+#lobby #refresh-rooms, #lobby #reconnect-lobby { min-height: 44px; padding: 6px 12px; font-size: 13px; color: #e0e6d4; background: #19372b; border: 1px solid #b8cfad66; box-shadow: none; }
+/* Swipes continue through the lobby when the room list fits or reaches its end. */
+#public-rooms { flex: 0 1 auto; min-height: 120px; max-height: 350px; overflow-y: auto; overflow-x: hidden; margin: 0; padding: 0 4px 0 0; list-style: none; scrollbar-color: #91ae8f55 #0b1c1655; scrollbar-width: thin; touch-action: pan-y; overscroll-behavior-y: auto; }
+#public-rooms:empty { display: none; }
+.public-room { display: grid; grid-template-columns: minmax(0, 1fr) 104px 106px; grid-template-rows: auto auto auto; column-gap: 12px; row-gap: 3px; align-items: center; padding: 12px; box-sizing: border-box; min-height: 92px; border: 1px solid #d9dfc738; background: #16322788; }
+.public-room + .public-room { margin-top: 8px; }
+.public-room[data-joinable="true"] { cursor: pointer; }
+.public-room[data-joinable="true"]:hover { border-color: #c3deba85; background: #204331a3; }
+.room-name { grid-column: 1; grid-row: 1; margin: 0; color: #ece8d6; font-size: 16px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.room-count { grid-column: 2; grid-row: 1; font: 600 17px/1.5 ui-monospace, monospace; color: #d6e8c8; text-align: right; }
+.room-state { grid-column: 1; grid-row: 2; color: #b8d8ba; font-size: 13px; line-height: 1.5; }
+.room-latency { grid-column: 2; grid-row: 2; color: #bbc5b5; font-size: 11px; line-height: 1.5; white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
+.room-note { grid-column: 1 / 3; grid-row: 3; margin: 0; color: #bac4b1; font-size: 12px; line-height: 1.5; }
+#lobby .room-join { grid-column: 3; grid-row: 1 / 4; width: 106px; padding: 7px 9px; color: #e4e9d6; background: #31543d; border: 1px solid #b3cea066; box-shadow: none; font-size: 14px; }
+.public-room[data-joinable="false"] { background: #13271e55; }
+.public-room[data-joinable="false"] .room-state, .public-room[data-joinable="false"] .room-note { color: #c6b5a4; }
+#rooms-empty { flex: 1 1 auto; display: grid; align-content: center; margin: 0; min-height: 150px; text-align: center; color: #c7cfba; font-size: 14px; line-height: 1.9; }
+.room-latency-note { margin: 9px 0 0; color: #aab9a5; font-size: 11px; line-height: 1.5; text-align: right; }
+#public-rooms[data-state="error"] + #rooms-empty + .room-latency-note { color: #e4b59d; }
+#lobby-action-status, #lobby > #err { margin: 0; padding: 8px 12px; font-size: 14px; line-height: 1.5; color: #d9dec7; background: #0a1b1480; }
+#lobby > #err { color: #ffad98; border-left: 2px solid #d97762; }
+#lobby-action-status:empty, #lobby > #err:empty { display: none; }
+#lobby #waiting { max-width: 740px; padding: 20px; gap: 18px; background: #0a1a1559; border: 1px solid #d9dfc73d; }
+#lobby #waiting .sub { margin: 0; color: #dbe1c9; letter-spacing: 2px; font-size: 16px; text-align: center; line-height: 2; }
+#wait-code { color: #f1dfac; font: 700 26px/1.4 ui-monospace, monospace; letter-spacing: 6px; }
+#wait-visibility { margin: 0; color: #bccbb5; text-align: center; font-size: 13px; line-height: 1.6; }
+#wait-members { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 18px; width: 100%; max-width: 450px; min-width: 0; }
+#wait-members li { padding: 8px 12px; color: #e4e4d1; background: #d9dfc70a; border-left: 2px solid #bdd3ac55; overflow-wrap: anywhere; font-size: 15px; }
+#wait-hint { color: #c5d0b9; text-align: center; line-height: 1.6; font-size: 14px; }
+#lobby > #updates { margin: 0; }
+#lobby #updates-details { max-height: 130px; overflow-y: auto; touch-action: pan-y; }
+@media (max-width: 1000px) {
+  #entry { grid-template-columns: 244px minmax(0, 1fr); gap: 18px; }
+  .public-lobby { padding: 12px; }
+  .public-room { grid-template-columns: minmax(0, 1fr) 90px 90px; gap: 3px 8px; padding: 10px; }
+  #lobby .room-join { width: 90px; }
+  .room-latency { font-size: 10px; }
+}
+@media (max-height: 500px) {
+  #lobby { display: flex; padding: max(16px, env(safe-area-inset-top)) max(26px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(26px, env(safe-area-inset-left)); gap: 10px; }
+  .lobby-heading { align-items: center; }
+  #lobby h1 { font-size: 32px; letter-spacing: 5px; }
+  #lobby h1::after { height: 2px; margin-top: 4px; }
+  #lobby .lobby-heading .sub { margin-top: 4px; font-size: 12px; letter-spacing: 1px; }
+  #lobby-connection { font-size: 12px; }
+  #entry { align-self: auto; width: 100%; max-width: 1080px; padding: 0; border: 0; grid-template-columns: 236px minmax(0, 1fr); gap: 16px; }
+  .lobby-actions { gap: 8px; }
+  .name-field { gap: 3px; font-size: 12px; }
+  .create-options { padding: 5px 9px 9px; }
+  .create-options legend { font-size: 12px; }
+  #lobby .lobby-note { margin-top: 4px; font-size: 11px; }
+  .late-join-option, .guidance-option { min-height: 44px; margin-top: 2px; font-size: 13px; }
+  #lobby .late-join-note { display: none; }
+  #lobby #create { margin: 0 0 8px; }
+  .code-entry > label { margin-bottom: 4px; font-size: 11px; }
+  .public-lobby { padding: 10px 12px; min-height: 0; }
+  #public-rooms-title { font-size: 20px; letter-spacing: 2px; }
+  .quick-join-hint { font-size: 11px; margin-top: 6px; }
+  .rooms-toolbar { margin: 2px 0; }
+  #rooms-status { font-size: 12px; }
+  #public-rooms { min-height: 115px; max-height: 216px; }
+  .public-room { min-height: 84px; padding: 8px 10px; }
+  .room-name { font-size: 15px; }
+  .room-count { font-size: 15px; }
+  .room-state { font-size: 12px; }
+  .room-note { font-size: 11px; }
+  .room-latency-note { margin-top: 6px; font-size: 10px; }
+  #rooms-empty { min-height: 115px; font-size: 13px; }
+  #lobby > #updates { align-self: auto; width: 100%; max-width: 1080px; font-size: 12px; }
+  #lobby #updates-details { max-height: 92px; }
+  #lobby #waiting { align-self: auto; max-width: 740px; padding: 14px; gap: 10px; border: 1px solid #d9dfc73d; }
+}
+@media (max-width: 620px) {
+  #lobby { padding-inline: 24px; }
+  .lobby-heading { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .lobby-connection-area { text-align: left; }
+  #entry { grid-template-columns: minmax(0, 1fr); }
+  .lobby-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
+  #public-rooms { min-height: 180px; max-height: 300px; }
+  .public-lobby-heading { gap: 8px; }
+  #lobby #quick-join { padding-inline: 12px; }
+  #wait-members { grid-template-columns: 1fr; }
+}

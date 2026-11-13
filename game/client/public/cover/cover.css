@@ -1,0 +1,260 @@
+/* Legacy cover compatibility only. The browser lobby uses style.css/lobby.css;
+ * native launchers use apps/shared/chalk.css. Keep this after lobby.css if an
+ * older embed still opts into .school-cover, and keep the board code drawn. */
+:root {
+  --cover-chalk: #eee9d9;
+  --cover-muted: #b6b9ab;
+  --cover-rule: #c7c9b637;
+  /* The original board is rendered from gradients and chalk noise. Do not
+     replace this with a photographic/AI board texture. */
+  --cover-board: radial-gradient(ellipse at 50% 42%, #2b4a3a 0%, #1c3529 55%, #0f1f17 100%);
+  /* Portrait source for app/browser icons; the opening screen has no portrait. */
+  --cover-warden: url("warden-cover-cartoon-v2.webp");
+}
+:is(#lobby, #launcher).school-cover {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  box-sizing: border-box;
+  padding: max(36px, env(safe-area-inset-top)) clamp(30px, 5vw, 76px) max(30px, env(safe-area-inset-bottom));
+  overflow: auto;
+  isolation: isolate;
+  color: var(--cover-chalk);
+  background: #15201c;
+  box-shadow: none;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  scrollbar-color: #b8bfab55 #111b17;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+:is(#lobby, #launcher).school-cover::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+:is(#lobby, #launcher).school-cover::before {
+  z-index: -2;
+  background: linear-gradient(90deg, #0e181acc, #13201a38 62%, #080e0c50), var(--cover-board) center / cover no-repeat, radial-gradient(ellipse at 38% 25%, #31473b, #101b17 85%);
+  box-shadow: inset 0 0 0 9px #352b21, inset 0 0 0 11px #61513c, inset 0 0 0 15px #201c16, inset 0 0 90px 20px #0009;
+}
+:is(#lobby, #launcher).school-cover > * {
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+:is(#lobby, #launcher) .cover-stamp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 1080px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--cover-rule);
+  color: #c1c6b5;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 4px;
+}
+:is(#lobby, #launcher) .cover-stamp > :last-child { color: #cb9e8d; letter-spacing: 3px; }
+:is(#lobby, #launcher) h1 {
+  margin: 0;
+  color: var(--cover-chalk);
+  font-family: "Songti SC", "Noto Serif CJK SC", "STSong", "SimSun", serif;
+  font-size: clamp(38px, 4.7vw, 68px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: .15em;
+  background: none;
+  text-shadow: 1px 1px 0 #eee9d933, -1px 0 1px #eee9d940, 0 2px 15px #0005;
+  animation: none;
+}
+:is(#lobby, #launcher) h1::after {
+  content: "";
+  display: block;
+  width: min(95%, 360px);
+  height: 2px;
+  margin: 12px 0 0;
+  background: linear-gradient(90deg, #dddac5a6, #dddac54d 74%, transparent);
+  transform: rotate(-.6deg);
+}
+#lobby.school-cover > .sub,
+#lobby.school-cover .lobby-heading .sub,
+#launcher .sub {
+  margin: 8px 0 0;
+  color: #c9b6a7;
+  font-size: 13px;
+  line-height: 1.7;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 5px #000;
+}
+#lobby.school-cover > .sub { margin: -12px 0 4px; }
+#lobby.school-cover .lobby-heading {
+  align-items: center;
+  width: 100%;
+  max-width: 1080px;
+  gap: 20px;
+}
+#lobby.school-cover #entry,
+#lobby.school-cover #waiting,
+#lobby.school-cover > #updates,
+#lobby.school-cover > #lobby-action-status,
+#lobby.school-cover > #err {
+  width: 100%;
+  max-width: 1080px;
+}
+#lobby.school-cover #entry:has(.lobby-actions) { grid-template-columns: 264px minmax(0, 1fr); gap: 28px; }
+#lobby.school-cover #entry:not(:has(.lobby-actions)) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 18px;
+  max-width: 400px;
+  padding: 24px;
+  border: 1px solid var(--cover-rule);
+  background: #0d1818bd;
+}
+#lobby.school-cover .lobby-actions { gap: 16px; }
+#lobby.school-cover .name-field,
+#lobby.school-cover .code-entry > label { color: #c9cbbc; }
+#lobby.school-cover .create-options,
+#lobby.school-cover .public-lobby,
+#lobby.school-cover #waiting {
+  border: 1px solid var(--cover-rule);
+  background: #0e1a18cc;
+  box-shadow: 0 6px 24px #0002;
+}
+#lobby.school-cover .create-options { padding: 12px; }
+#lobby.school-cover .public-lobby { padding: 18px 20px; }
+#lobby.school-cover .create-options legend { color: var(--cover-chalk); }
+#lobby.school-cover .visibility-options label { border-color: #c7c9b629; }
+#lobby.school-cover .visibility-options label:has(input:checked) { background: #d5d8bd12; border-color: #d5d8bd80; color: #eeeedb; }
+#lobby.school-cover input[type="radio"],
+#lobby.school-cover input[type="checkbox"] { accent-color: #d9d7bd; }
+#lobby.school-cover #name,
+#lobby.school-cover #code,
+#launcher #endpoint {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  color: var(--cover-chalk);
+  border: 1px solid #d7d8bd4f !important;
+  border-radius: 2px;
+  background: #070f0e73 !important;
+  text-align: left;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.45;
+  letter-spacing: 1px;
+  box-shadow: inset 0 1px 4px #0002;
+}
+#lobby.school-cover #code { font: 600 21px/1.3 ui-monospace, monospace; letter-spacing: 5px; }
+#lobby.school-cover #name::placeholder,
+#lobby.school-cover #code::placeholder { color: #c3c7b780; font-size: 13px; letter-spacing: 1px; }
+#lobby.school-cover button,
+#launcher button {
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 11px 18px;
+  color: var(--cover-chalk);
+  border: 1px solid #d7d8bd59;
+  border-radius: 2px;
+  background: #192921d9;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px #0003;
+  transform: none;
+  transition: background .16s ease, border-color .16s ease;
+}
+#lobby.school-cover button:nth-of-type(even),
+#lobby.school-cover .row button { transform: none; background: #192921d9; }
+#lobby.school-cover button::before { display: none; }
+#lobby.school-cover button:hover,
+#launcher button:hover { transform: none; background: #2c3b30; border-color: #dddcc18c; }
+#lobby.school-cover :is(#create, #start, #quick-join),
+#launcher #solo { color: #202b25; background: #e4dfc6; border-color: #e4dfc6; font-weight: 600; }
+#lobby.school-cover :is(#create, #start, #quick-join):hover,
+#launcher #solo:hover { background: #f2edd7; border-color: #f2edd7; }
+#lobby.school-cover button:disabled,
+#launcher button:disabled { cursor: not-allowed; opacity: .5; }
+#lobby.school-cover :is(button, input):focus-visible,
+#launcher :is(button, input, summary):focus-visible { outline: 2px solid #ece8c5; outline-offset: 3px; }
+#lobby.school-cover :is(.lobby-note, .quick-join-hint, .room-latency-note, #rooms-status, #wait-hint) { color: #b9bfaf; }
+#lobby.school-cover #lobby-connection { color: #c3c9b5; }
+#lobby.school-cover #lobby-connection[data-state="disconnected"] { color: #e6a58e; }
+#lobby.school-cover :is(#refresh-rooms, #reconnect-lobby, .room-join, #copy-code) { background: #192921e6; border-color: #d7d8bd4d; color: #e4e2cf; }
+#lobby.school-cover .room-join { padding: 7px 8px; font-size: 13px; letter-spacing: 0; white-space: nowrap; }
+#lobby.school-cover #public-rooms-title { color: var(--cover-chalk); font-family: "Songti SC", "SimSun", serif; font-weight: 600; }
+#lobby.school-cover .public-room { border-color: #c7c9b62b; background: #c3c8b508; }
+#lobby.school-cover .public-room[data-joinable="true"]:hover { border-color: #c7c9b66b; background: #c3c8b515; }
+#lobby.school-cover .public-room[data-joinable="false"] { background: #03080740; }
+#lobby.school-cover :is(.room-count, .room-state) { color: #cbd2b9; }
+#lobby.school-cover :is(.room-name, #wait-members li) { color: #eee9d9; }
+#lobby.school-cover #wait-members li { background: #c7c9b60a; border-color: #d7d8bd59; }
+#lobby.school-cover :is(#lobby-action-status, #err) { min-height: 0; margin: 0; color: #edb19b; }
+#lobby.school-cover :is(#lobby-action-status, #err):empty { display: none; }
+#lobby.school-cover > #updates { max-width: 1080px; margin: 0; color: #b6bdac; }
+#lobby.school-cover #updates-details { background: #0e1a18e6; border-color: var(--cover-rule); }
+#lobby.school-cover :is(.updates-teaser, #updates-title) { color: #d4d7be; }
+#lobby.school-cover #updates button { color: #d4d7be; background: #12211b; border-color: #d7d8bd40; }
+#launcher { min-height: 0; }
+#launcher .hero { width: min(100%, 600px); padding: 8px 0 0; }
+#launcher .description { margin: 24px 0; color: #bbc1af; font-size: 13px; line-height: 1.9; letter-spacing: .5px; }
+#launcher .actions { display: flex; flex-direction: column; gap: 12px; width: min(100%, 340px); }
+#launcher .actions button { position: relative; padding: 14px 20px; text-align: left; }
+#launcher .actions span { display: block; font-size: 16px; letter-spacing: 3px; }
+#launcher .actions small { display: block; margin-top: 5px; font-size: 11px; letter-spacing: .4px; opacity: .7; }
+#launcher .actions b { position: absolute; right: 20px; top: 22px; font-weight: 400; }
+#launcher #status { min-height: 18px; margin: 12px 0; color: #e0ac92; font-size: 12px; }
+#launcher details { width: min(100%, 340px); color: #aab6a2; font-size: 12px; }
+#launcher summary { cursor: pointer; }
+#launcher details label { display: block; margin: 12px 0 6px; }
+#launcher details p { font-size: 11px; line-height: 1.7; }
+#launcher #endpoint { font: 12px/1.5 ui-monospace, monospace; letter-spacing: 0; }
+#launcher footer { display: flex; justify-content: space-between; align-items: center; gap: 20px; width: 100%; max-width: 1080px; margin-top: auto; padding-top: 24px; font-size: 10px; line-height: 1.8; color: #a3ae9b; }
+#launcher footer i { padding: 0 8px; font-style: normal; }
+#launcher #quit { flex-shrink: 0; min-height: 44px; padding: 8px 0 8px 16px; background: none; border: 0; box-shadow: none; color: #bac1aa; font-size: 11px; }
+@media (max-width: 1000px) {
+  #lobby.school-cover #entry:has(.lobby-actions) { grid-template-columns: 244px minmax(0, 1fr); gap: 18px; }
+}
+@media (max-height: 580px) {
+  :is(#lobby, #launcher).school-cover { gap: 13px; padding-top: max(22px, env(safe-area-inset-top)); padding-bottom: max(22px, env(safe-area-inset-bottom)); }
+  :is(#lobby, #launcher) .cover-stamp { padding-bottom: 9px; }
+  :is(#lobby, #launcher) h1 { font-size: 36px; }
+  :is(#lobby, #launcher) h1::after { margin-top: 8px; }
+  #lobby.school-cover .lobby-heading .sub { font-size: 12px; letter-spacing: 1px; }
+  #lobby.school-cover #entry:has(.lobby-actions) { grid-template-columns: 236px minmax(0, 1fr); gap: 16px; }
+  #lobby.school-cover .lobby-actions { gap: 8px; }
+  #lobby.school-cover .create-options { padding: 6px 10px 10px; }
+  #lobby.school-cover .public-lobby { padding: 12px; }
+  #launcher .description { margin: 16px 0; }
+  #launcher .actions { flex-direction: row; width: min(100%, 540px); }
+  #launcher .actions button { flex: 1; padding: 12px 16px; }
+  #launcher .actions b { display: none; }
+}
+@media (max-width: 620px) {
+  :is(#lobby, #launcher).school-cover { gap: 18px; padding-inline: max(26px, env(safe-area-inset-left)); }
+  :is(#lobby, #launcher) .cover-stamp { font-size: 9px; letter-spacing: 3px; }
+  #lobby.school-cover .lobby-heading { flex-direction: column; align-items: flex-start; gap: 12px; }
+  #lobby.school-cover #entry:has(.lobby-actions) { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  #lobby.school-cover .public-lobby { padding: 14px; }
+  #lobby.school-cover #entry:not(:has(.lobby-actions)) { max-width: none; padding: 20px; }
+  #lobby.school-cover .lobby-connection-area { text-align: left; }
+  #lobby.school-cover #updates { font-size: 12px; }
+  #launcher .hero { padding-top: 8px; }
+  #launcher .actions { flex-direction: column; }
+  #launcher footer { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(#lobby, #launcher).school-cover * { animation: none !important; transition: none !important; }
+}

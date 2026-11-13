@@ -1,0 +1,55 @@
+#exam-overlay { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); box-sizing: border-box; background: #020906b8; color: #e8e4d8; touch-action: auto; }
+#exam-overlay[hidden] { display: none; }
+.exam-panel { width: min(700px, 100%); max-height: 100%; box-sizing: border-box; overflow: auto; padding: 22px; background: linear-gradient(145deg, #233c30, #111f19); border: 1px solid #a99c70; border-radius: 5px; box-shadow: 0 0 0 4px #3c2c1d, 0 15px 80px #000; font-family: sans-serif; line-height: 1.45; }
+.exam-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.exam-header h2 { margin: 0; font-size: 25px; letter-spacing: 2px; }
+.exam-panel button { cursor: pointer; font: inherit; color: inherit; border: 1px solid #e8e4d86b; border-radius: 4px; background: #09170ecc; min-height: 46px; padding: 8px 16px; touch-action: manipulation; }
+.exam-panel button:hover:not(:disabled), .exam-panel button:focus-visible { background: #345940; outline: 2px solid #e4dba7; outline-offset: 2px; }
+.exam-panel button:disabled { cursor: default; opacity: .5; }
+.exam-close { flex: 0 0 auto; }
+.exam-sub { font-size: 14px; color: #c6d0bd; margin: 10px 0 16px; }
+.exam-progress { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; margin-bottom: 18px; }
+.exam-progress button { padding: 8px; color: #a8b9a7; }
+.exam-progress button.done { border-color: #a9bf92; color: #e2eed0; }
+.exam-progress button.current { background: #e6e0c8; color: #16271c; font-weight: 700; }
+.exam-question { font-size: 19px; margin: 0 0 16px; }
+.exam-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.exam-panel button.exam-choice { display: flex; align-items: center; gap: 12px; text-align: left; min-height: 64px; font-size: 17px; padding: 10px 14px; }
+.exam-letter { display: grid; place-items: center; width: 28px; height: 28px; flex: 0 0 28px; border: 1px solid #c4cbb67d; border-radius: 50%; }
+.exam-panel button.exam-choice.selected { border: 2px solid #cfdfa8; background: #496c43; opacity: 1; padding: 9px 13px; }
+.exam-footer { display: flex; justify-content: space-between; gap: 18px; align-items: center; margin-top: 18px; border-top: 1px solid #c6c4a738; padding-top: 14px; }
+.exam-status { margin: 0; font-size: 14px; color: #c6d0bd; }
+.exam-status.passed { color: #d4eda9; }
+.exam-status.warning { color: #efc886; }
+.exam-submit { flex: 0 0 auto; min-width: 126px; background: #52633b !important; }
+.exam-clue { border-left: 3px solid #b8c795; padding: 0 0 0 14px; margin-bottom: 22px; }
+.exam-clue h3 { margin: 0 0 5px; font-size: 17px; }
+.exam-clue p { margin: 0; color: #d6dccb; font-size: 17px; }
+.exam-location { color: #cddba9; font-size: 14px; }
+body.exam-open #touch, body.exam-open #goal-arrow, body.exam-open #crosshair, body.exam-open #prompt, body.exam-open #map { visibility: hidden; }
+/* Reading a paper also works after rotating the phone; the usual landscape gate returns when it is closed. */
+body.exam-open #rotate { display: none; }
+body.exam-open #settings-open { visibility: hidden; }
+@media (max-height: 500px) {
+  #exam-overlay { padding-top: 8px; padding-bottom: 8px; }
+  .exam-panel { padding: 12px 18px; }
+  .exam-header h2 { font-size: 20px; }
+  .exam-panel button { min-height: 40px; padding: 6px 12px; }
+  .exam-sub { margin: 4px 0 8px; font-size: 12px; }
+  .exam-progress { gap: 7px; margin-bottom: 9px; }
+  .exam-progress button { min-height: 36px; padding: 4px; }
+  .exam-question { font-size: 17px; margin-bottom: 9px; }
+  .exam-choices { gap: 8px; }
+  .exam-panel button.exam-choice { min-height: 50px; font-size: 16px; padding: 7px 12px; }
+  .exam-panel button.exam-choice.selected { padding: 6px 11px; }
+  .exam-footer { margin-top: 10px; padding-top: 8px; }
+  .exam-status { font-size: 12px; }
+  .exam-clue { margin-bottom: 12px; }
+  .exam-clue h3, .exam-clue p { font-size: 15px; }
+}
+@media (max-width: 500px) and (min-height: 501px) {
+  .exam-panel { padding: 16px; }
+  .exam-choices { grid-template-columns: 1fr; gap: 8px; }
+  .exam-panel button.exam-choice { min-height: 54px; }
+  .exam-footer { align-items: stretch; flex-direction: column; gap: 10px; }
+}

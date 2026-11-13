@@ -1,0 +1,23 @@
+/* Royale safe-zone HUD (royaleHud.ts). The royale hides the task card, so the zone card takes its top-right slot: away from
+   the room line and tutorial bar, below the phone's map/chat buttons, beside (never under) the open campus plan. */
+#zone-hud { position: absolute; top: 18px; right: 18px; width: 300px; box-sizing: border-box; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; column-gap: 10px; padding: 7px 12px 8px 11px; border-left: 3px solid var(--zc); border-radius: 3px; background: var(--slate); box-shadow: var(--frame); color: var(--chalk); text-shadow: 0 1px 2px #000a; letter-spacing: 1px; line-height: 1.35; --zc: var(--emerg); }
+#zone-hud[data-state="warn"] { --zc: #e8c15a; }
+#zone-hud[data-state="out"] { --zc: var(--warn); background: var(--dust), linear-gradient(155deg, #3a0e0bf0, #1d0706e6); box-shadow: 0 0 0 1px #ff5a4a8c, 0 4px 18px #0005; animation: zh-pulse 1s ease-in-out infinite; }
+#zone-hud .zh-alive { font-size: 12px; color: #c9c4b4; white-space: nowrap; }
+#zone-hud .zh-head { font-size: 13px; color: #c9c4b4; }
+#zone-hud .zh-row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 2px 9px; margin-top: 3px; font-size: 16px; font-weight: 700; color: var(--zc); }
+#zone-hud .zh-status { min-width: 0; }
+#zone-hud .zh-arrow { flex: none; width: 20px; height: 22px; background: var(--zc); clip-path: polygon(50% 0, 100% 100%, 50% 74%, 0 100%); filter: drop-shadow(0 0 2px #000); transition: transform .12s linear; }
+#zone-hud[data-state="safe"] .zh-arrow { display: none; }
+#zone-hud .zh-dist { margin-left: auto; font-size: 13px; font-weight: 400; color: var(--chalk); opacity: .85; white-space: nowrap; }
+#zone-hud .zh-bar { grid-column: 1 / -1; height: 3px; margin-top: 6px; border-radius: 2px; background: #ffffff1c; opacity: 0; overflow: hidden; }
+#zone-hud .zh-bar b { display: block; height: 100%; width: 0; background: var(--warn); }
+@keyframes zh-pulse { 50% { box-shadow: 0 0 0 1px var(--warn), 0 0 14px #ff5a4a88; } }
+body.touch #zone-hud { top: calc(max(8px, env(safe-area-inset-top)) + 54px); right: max(12px, env(safe-area-inset-right)); width: 256px; padding: 5px 10px 6px 9px; }
+body.touch #zone-hud .zh-row { font-size: 15px; }
+
+/* "被熄灯吞没": the dark closes in from the edge, with crawling noise. --zf is 0 (clear) .. 1 (fully swallowed). */
+#zone-fog { position: absolute; inset: 0; pointer-events: none; opacity: 0; --zf: 0; background: radial-gradient(ellipse 72% 72% at 50% 50%, #0000 calc(64% - var(--zf) * 34%), rgba(52, 10, 46, calc(.38 + var(--zf) * .52)) 100%); }
+#zone-fog::after { content: ""; position: absolute; inset: 0; opacity: calc(.15 + var(--zf) * .5); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .85 0 0 0 0 .8 0 0 0 0 .9 1.6 0 0 0 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #0000 calc(58% - var(--zf) * 30%), #000 100%); mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #0000 calc(58% - var(--zf) * 30%), #000 100%); animation: zf-crawl .5s steps(4) infinite; }
+@keyframes zf-crawl { to { background-position: 180px 90px; } }
+@media (prefers-reduced-motion: reduce) { #zone-hud[data-state="out"] { animation: none; } #zone-fog::after { animation: none; } }

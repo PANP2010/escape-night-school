@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "size": [260, 250],
+  "groundColor": "#9a9483",
+  "axisTrees": 9,
+  "wall": { "minX": -128, "maxX": 128, "minZ": -8, "maxZ": 208, "h": 2.4, "t": 0.4, "gate": [-5, 5], "gateH": 1.5, "gateOpen": [["06:40", "07:20"], ["11:50", "12:10"], ["13:20", "13:40"], ["17:40", "18:00"], ["21:00", "21:45"]], "color": "#d6ccb6",
+    "low": { "side": "-x", "from": 191, "to": 203, "h": 1.35, "tree": [-125.4, 198.5] } },
+  "lampNote": "路灯 [x, z]：中轴两侧（梧桐外侧）、升旗广场四角、A/B 楼前、通往旧办公楼的路、门卫室旁",
+  "lamps": [[-9.5, 5], [9.5, 5], [-9.5, 17], [9.5, 17], [-9.5, 29], [9.5, 29], [-9.5, 41], [9.5, 41], [-9.5, 53], [9.5, 53], [-12, 62], [12, 62], [-12, 70], [12, 70], [-45, 60], [45, 60], [-4, 100], [-2.5, 122.5], [-16, 120], [56, 124], [95, 96], [4, -3], [89, 45], [-79, 64], [-67.6, 76]],
+  "wallLampsNote": "门头壁灯 [x, z, 灯头高, 墙朝向]（无杆，挂墙；不写朝向 = 雨棚下吸顶）：后半个校园每区一处，锅炉房门西侧、食堂北墙后院、主席台雨棚前沿（照台前）；矮墙一带和旧实验楼门前不设，留给夜潜",
+  "wallLamps": [[105.6, 185, 2.6, "-z"], [108, 72, 3.2, "+z"], [-76, 162.12, 4.3, "+z"]],
+  "propsNote": "室外小件（world/props.ts）：bins 分类双桶 [x, z, 投口朝向]、benches 长椅 [x, z, 坐着的人朝向]、beds 花坛 [中心 x, z, 宽（沿 x）, 深]。人行道上的长椅在梧桐之间、背靠路灯一侧；楼门两侧花坛 + 门边垃圾桶；升旗广场北缘两座花坛、前面长椅朝旗台",
+  "props": {
+    "bins": [[-9, 20.5, "+x"], [9, 44.5, "-x"], [-13.3, 66, "+x"], [13.3, 60, "-x"], [-37.2, 62.7, "-z"], [43.2, 73.7, "-z"], [90.6, 47.7, "-z"], [65, 125.5, "-z"], [-23.2, 122.7, "-z"]],
+    "benches": [[-8.4, 23, "+x"], [-8.4, 35, "+x"], [-8.4, 47, "+x"], [8.4, 23, "-x"], [8.4, 35, "-x"], [8.4, 47, "-x"], [-8, 72.9, "-z"], [8, 72.9, "-z"], [54.5, 124.5, "-z"]],
+    "beds": [[-8, 74.4, 5, 1.4], [8, 74.4, 5, 1.4], [-47, 62.2, 6, 1.4], [-33, 62.2, 6, 1.4], [33, 73.2, 6, 1.4], [47, 73.2, 6, 1.4], [-27, 122.3, 5, 1.2], [-13, 122.3, 5, 1.2]], "sheds": [[-72, 82, 14, "+x"]]
+  },
+  "platforms": [
+    {
+      "id": "FLAG",
+      "name": "升旗台",
+      "x": 0,
+      "z": 64,
+      "w": 7,
+      "d": 4,
+      "h": 0.6,
+      "color": "#bdb49f",
+      "stairs": { "side": "-z", "width": 3, "steps": 4 },
+      "pole": 9
+    }
+  ],
+  "pavingNote": "铺装（world/paving.ts）：中轴大道条石 + 两侧彩砖人行道（梧桐树池、路灯在上）、升旗广场棋盘格 + 镶边、通往 A/B 楼前门的小路。curb = 路缘石，gaps = 路口断开处（沿边的世界坐标）",
+  "streetNote": "门外马路（world/paving.ts streetParts）：门外人行道 walk 深（门口坡道 = 降低的路缘石），马路 road 宽 lanes 车道、斑马线 zebra = [中心 x, 宽]，对面人行道 far 深，后面一道绿篱 hedge = [深, 高]",
+  "street": { "walk": 3.5, "road": 14, "lanes": 4, "far": 3, "zebra": [0, 6], "hedge": [1, 0.9], "lamps": [30, 8, 3] },
+  "paving": [
+    { "id": "GATE_APRON", "name": "门内回车场", "x": 0, "z": -7.2, "w": 11, "d": 1.2, "color": "#a8a395", "pattern": "grid", "tile": [1.2, 0.6], "curb": ["-x", "+x", { "side": "+z", "gaps": [[-4.15, 4.15]] }] },
+    { "id": "AXIS_ROAD", "name": "中轴大道", "x": 0, "z": 24.7, "w": 8, "d": 62.6, "color": "#a8a395", "pattern": "grid", "tile": [1.2, 0.6],
+      "curb": ["-x", { "side": "+x", "gaps": [[2.1, 3.3]] }] },
+    { "id": "AXIS_W", "name": "中轴西人行道", "x": -7.5, "z": 30, "w": 7, "d": 52, "color": "#a3927d", "pattern": "bond", "tile": [0.5, 0.25], "curb": ["-x", "-z"] },
+    { "id": "AXIS_E", "name": "中轴东人行道", "x": 7.5, "z": 30, "w": 7, "d": 52, "color": "#a3927d", "pattern": "bond", "tile": [0.5, 0.25], "curb": ["+x", "-z"] },
+    { "id": "SQUARE", "name": "升旗广场", "x": 0, "z": 66, "w": 28, "d": 20, "color": "#b8b1a1", "pattern": "checker", "tile": [1.2, 1.2],
+      "border": { "w": 0.6, "color": "#9e9787" },
+      "curb": [{ "side": "-z", "gaps": [[-11, 11]] }, { "side": "-x", "gaps": [[57, 63], [72.6, 75.4]] }, { "side": "+x", "gaps": [[68, 74]] }, { "side": "+z", "gaps": [[-3, 3]] }] },
+    { "id": "PATH_A", "name": "A 楼前小路", "x": -29, "z": 60, "w": 30, "d": 6, "color": "#aaa496", "pattern": "bond", "tile": [0.5, 0.25], "curb": ["-z", "-x"] },
+    { "id": "PATH_B", "name": "B 楼前小路", "x": 29, "z": 71, "w": 30, "d": 6, "color": "#aaa496", "pattern": "bond", "tile": [0.5, 0.25], "curb": ["-z", "+x"] },
+    {"id": "LAWN_A", "name": "A 楼前草坪", "x": -38.15, "z": 31.35, "w": 47.7, "d": 50.7, "color": "#7b875a", "pattern": "lawn", "tile": [1, 1.5], "curb": ["-z", "-x"], "hedge": [{"side": "+z", "gaps": [[-34, -24]]}]},
+    {"id": "LAWN_A2", "name": "A 楼前草坪（大道边）", "x": -12.8, "z": 30.93, "w": 3.0, "d": 49.85, "color": "#7b875a", "pattern": "lawn", "tile": [1, 1.5], "curb": ["-z"], "hedge": ["+x"]},
+    {"id": "LAWN_B", "name": "B 楼前草坪", "x": 38.15, "z": 36.85, "w": 47.7, "d": 61.7, "color": "#7b875a", "pattern": "lawn", "tile": [1, 1.5], "curb": ["-z", "+x"], "hedge": [{"side": "+z", "gaps": [[24, 34]]}]},
+    {"id": "LAWN_B2", "name": "B 楼前草坪（大道边）", "x": 12.8, "z": 30.93, "w": 3.0, "d": 49.85, "color": "#7b875a", "pattern": "lawn", "tile": [1, 1.5], "curb": ["-z"], "hedge": ["-x"]},
+    {"id": "LAWN_AN", "name": "A 楼后草坪", "x": -32.65, "z": 105.25, "w": 58.7, "d": 14.9, "color": "#7b875a", "pattern": "lawn", "tile": [1, 1.5], "curb": ["-x"]},
+    {"id": "LAWN_B3", "name": "B 楼门东草坪", "x": 53, "z": 71, "w": 18, "d": 6, "color": "#7b875a", "pattern": "lawn", "tile": [1, 1.5], "curb": ["+x"]},
+    {"id": "LAWN_BN", "name": "B 楼后草坪", "x": 36.65, "z": 103.5, "w": 66.7, "d": 18.4, "color": "#7b875a", "pattern": "lawn", "tile": [1, 1.5], "curb": ["+x"]},
+    { "id": "N_ROAD", "name": "北路（广场—北横路）", "x": 0, "z": 97, "w": 6, "d": 42, "color": "#a8a395", "pattern": "grid", "tile": [1.2, 0.6], "curb": [{ "side": "-x", "gaps": [[113, 118]] }, { "side": "+x", "gaps": [[89, 94], [113, 118]] }] },
+    { "id": "W_ROAD", "name": "北横路西段", "x": -43.5, "z": 115.5, "w": 81, "d": 5, "color": "#a8a395", "pattern": "grid", "tile": [1.2, 0.6], "curb": ["-x", "-z", { "side": "+z", "gaps": [[-82, -78], [-23.5, -16.5]] }] },
+    { "id": "E_ROAD", "name": "北横路东段", "x": 37.5, "z": 115.5, "w": 69, "d": 5, "color": "#a8a395", "pattern": "grid", "tile": [1.2, 0.6], "curb": ["+x", "-z", { "side": "+z", "gaps": [[48, 72]] }] },
+    { "id": "OFF_PATH", "name": "旧办公楼门前", "x": -20, "z": 120.5, "w": 7, "d": 5, "color": "#aaa496", "pattern": "bond", "tile": [0.5, 0.25], "curb": ["-x", "+x"] },
+    { "id": "LAB_PATH", "name": "旧实验楼支路", "x": -80, "z": 125.5, "w": 4, "d": 15, "color": "#aaa496", "pattern": "bond", "tile": [0.5, 0.25], "curb": ["-x", "+x"] },
+    { "id": "LIB_PLAZA", "name": "图书馆门前", "x": 60, "z": 122, "w": 24, "d": 8, "color": "#b2ab9b", "pattern": "grid", "tile": [0.6, 0.6], "curb": ["-x", "+x"] },
+    { "id": "E_LANE", "name": "B 楼北路", "x": 45.5, "z": 91.5, "w": 85, "d": 5, "color": "#a8a395", "pattern": "grid", "tile": [1.2, 0.6], "curb": ["-z", "+z"] },
+    { "id": "HALL_FRONT", "name": "礼堂门前", "x": 100, "z": 93.7, "w": 24, "d": 9.4, "color": "#b2ab9b", "pattern": "grid", "tile": [1.2, 1.2], "curb": [{ "side": "-x", "gaps": [[89, 94]] }, "+x", { "side": "-z", "gaps": [[89.5, 92.7]] }] },
+    { "id": "CAN_PATH", "name": "食堂后门小路", "x": 91.1, "z": 80.5, "w": 3.2, "d": 17, "color": "#aaa496", "pattern": "bond", "tile": [0.5, 0.25], "curb": ["-x", "+x"] },
+    { "id": "N_LANE", "name": "北路北段", "x": 0, "z": 146, "w": 4, "d": 56, "color": "#b0ab9e", "pattern": "grid", "tile": [3, 3], "curb": ["-x", { "side": "+x", "gaps": [[170, 174]] }] },
+    { "id": "BOIL_ROAD", "name": "锅炉房路", "x": 56, "z": 172, "w": 108, "d": 4, "color": "#b0ab9e", "pattern": "grid", "tile": [3, 3], "curb": ["-z", { "side": "+z", "gaps": [[4, 8], [105.5, 109.5]] }, "+x"] },
+    { "id": "BACK_PATH", "name": "北墙巡查小路", "x": 6, "z": 190, "w": 4, "d": 32, "color": "#b0ab9e", "pattern": "grid", "tile": [1.2, 0.6], "curb": ["-x", "+x", "+z"] },
+    { "id": "BOIL_PATH", "name": "锅炉房门前", "x": 107.5, "z": 179.5, "w": 4, "d": 11, "color": "#b0ab9e", "pattern": "grid", "tile": [3, 3], "curb": ["-x", "+x"] }
+  ],
+  "coversNote": "井盖 / 篦子（world/paving.ts coverParts）：[kind, x, z, 长轴]。grate = 雨水篦子（贴大道两侧与广场北边的路缘石，长轴顺路缘石），lid = 检查井盖（方框圆盖）。都得落在某块铺装上",
+  "covers": [
+    ["grate", -3.775, -1, "z"],
+    ["grate", 3.775, -1, "z"],
+    ["grate", -3.775, 11, "z"],
+    ["grate", 3.775, 11, "z"],
+    ["grate", -3.775, 23, "z"],
+    ["grate", 3.775, 23, "z"],
+    ["grate", -3.775, 35, "z"],
+    ["grate", 3.775, 35, "z"],
+    ["grate", -3.775, 47, "z"],
+    ["grate", 3.775, 47, "z"],
+    ["lid", 0, 32, "x"],
+    ["lid", -6, 59.5, "x"],
+    ["lid", 10, 67, "x"],
+    ["grate", -4.5, 75.775, "x"],
+    ["grate", 4.5, 75.775, "x"]
+  ],
+  "fieldNote": "田径场（world/field.ts）：200 m 四道跑道（原设计 400 m 放不下：LAB 以北到北墙只有 ~56 m），长轴沿 x；内场草坪 + 七人制足球场；南侧看台 6 排 + 中间主席台（雨棚、铺红布的长桌）",
+  "field": { "id": "FIELD", "name": "田径场", "x": -76, "z": 184, "straight": 50, "r": 16, "lanes": 4, "lane": 1.22, "apron": 1,
+    "stand": { "len": 44, "rows": 6, "rise": 0.33, "run": 0.8, "gap": 1, "dais": 12 } },
+  "buildings": [
+    {
+      "id": "GATE",
+      "name": "门卫室",
+      "x": 8,
+      "z": 2,
+      "w": 4,
+      "d": 3,
+      "color": "#c8bfa8", "nightLit": 1, "nightRooms": ["1F.guard"], "enterable": true, "floorHeight": 3,
+      "facade": { "bay": 1.8, "width": 1.2, "sill": 0.9, "height": 1.3, "depth": 0.15, "margin": 0.4, "sides": ["+x", "-z"] },
+      "entrances": [{ "side": "-x", "at": 0.7, "width": 0.9, "height": 2.1 }],
+      "parapet": 0.4,
+      "floors": [
+        { "level": 1, "rooms": [
+          { "id": "guard", "name": "门卫室", "kind": "guard", "x": 0, "z": 0, "w": 3.52, "d": 2.52,
+            "windows": [{ "side": "-x", "at": -0.55, "width": 1.2, "sill": 0.9, "height": 1.3, "depth": 0.15, "hatch": 0.32 }] }
+        ] }
+      ]
+    },
+    {
+      "id": "A",
+      "name": "教学楼A",
+      "x": -40,
+      "z": 80,
+      "w": 50,
+      "d": 34,
+      "color": "#d8cdb4", "nightLit": 1,
+      "facade": { "bay": 3, "width": 1.8, "sill": 0.9, "height": 1.8, "depth": 0.2, "margin": 2.5 },
+      "entrances": [{ "side": "-z", "at": 0, "width": 3.6, "height": 2.9 }, { "side": "+x", "at": -6, "width": 2.4, "height": 2.7 },
+        { "side": "+x", "at": 4.25, "width": 2, "height": 2.6, "level": 2 }, { "side": "+x", "at": 4.25, "width": 2, "height": 2.6, "level": 4 }],
+      "courtyard": { "x": 0, "z": 2.95, "w": 28.72, "d": 16.1, "doors": [{ "side": "+z", "at": 0, "width": 2.4, "height": 2.7 }] },
+      "floors": [
+        { "level": 1 },
+        { "level": 2 },
+        { "level": 3 },
+        { "level": 4, "rename": { "w1": { "id": "class7", "name": "高三（7）班" } } },
+        { "level": 5 }
+      ],
+      "stairwells": [
+        { "id": "stairSW", "x": -21, "z": -14, "w": 8, "d": 6, "dir": "-x", "from": 1, "to": 5, "roof": true }
+      ],
+      "tankRoom": { "x": -21.76, "z": -8.49, "w": 6.52, "d": 4.98, "h": 2.6, "door": { "side": "+x", "at": -0.9 }, "ladder": { "side": "+x", "at": 1.6 }, "back": "-z" }
+    },
+    {
+      "id": "B",
+      "name": "教学楼B",
+      "x": 40,
+      "z": 80,
+      "w": 50,
+      "d": 12,
+      "color": "#d2c7ae", "nightLit": 0.9,
+      "facade": { "bay": 3, "width": 1.8, "sill": 0.9, "height": 1.8, "depth": 0.2, "margin": 2.5 },
+      "entrances": [{ "side": "-z", "at": 0, "width": 3.6, "height": 2.9 }, { "side": "-x", "at": 0, "width": 2.4, "height": 2.7 },
+        { "side": "-x", "at": 4.25, "width": 2, "height": 2.6, "level": 2 }, { "side": "-x", "at": 4.25, "width": 2, "height": 2.6, "level": 4 }],
+      "floors": [
+        { "level": 1 },
+        { "level": 2 },
+        { "level": 3 },
+        { "level": 4 },
+        { "level": 5 }
+      ],
+      "stairwells": [
+        { "id": "stairNE", "x": 21, "z": 3, "w": 8, "d": 6, "dir": "+x", "from": 1, "to": 5, "windows": "landing" }
+      ]
+    },
+    {
+      "id": "OFF",
+      "name": "旧办公楼",
+      "x": -20,
+      "z": 130,
+      "w": 30,
+      "d": 14,
+      "color": "#a8735a", "material": "brick", "trim": "#9c9486", "nightLit": 0.35, "dado": "#cc9670", "nightRooms": ["3F.yuwen"],
+      "facade": { "bay": 3.2, "width": 1.4, "sill": 1, "height": 1.7, "depth": 0.24, "margin": 1.6, "frame": "#5d6a5c", "glass": "#4c5658" },
+      "entrances": [{ "side": "-z", "at": 0, "width": 2, "height": 2.6 }],
+      "parapet": 0.6,
+      "layout": "office",
+      "floors": [
+        { "level": 1, "rename": { "s2": { "id": "jiaowu", "name": "教务处" }, "s3": { "id": "zongwu", "name": "总务处" }, "s4": { "id": "zawu", "name": "杂物间", "kind": "storage" }, "n1": { "id": "caiwu", "name": "财务室" }, "n2": { "id": "zhaosheng", "name": "招生办" }, "n3": { "id": "kaishui", "name": "开水间", "kind": "water" }, "n4": { "id": "jiaoke", "name": "教科室" } } },
+        { "level": 2, "rename": { "s2": { "id": "zhengzhi", "name": "政治组" }, "s3": { "id": "shuxue", "name": "数学组" }, "s4": { "id": "chucang", "name": "储藏室", "kind": "storage" }, "s5": { "id": "huaxue", "name": "化学组" }, "s6": { "id": "dangan", "name": "档案室" }, "n1": { "id": "fuyin", "name": "复印室" }, "n2": { "id": "wuli", "name": "物理组" }, "n3": { "id": "kaishui", "name": "开水间", "kind": "water" }, "n4": { "id": "yingyu", "name": "英语组" } } },
+        { "level": 3, "rename": { "s2": { "id": "lishi", "name": "历史组" }, "s3": { "id": "yuwen", "name": "语文组办公室" }, "s4": { "id": "chucang", "name": "储藏室", "kind": "storage" }, "s5": { "id": "dili", "name": "地理组" }, "s6": { "id": "shengwu", "name": "生物组" }, "n1": { "id": "yinmei", "name": "音美组" }, "n2": { "id": "tuanwei", "name": "团委" }, "n3": { "id": "kaishui", "name": "开水间", "kind": "water" }, "n4": { "id": "jiaoyan", "name": "教研活动室" } } },
+        { "level": 4, "rename": { "s2": { "id": "fuxiao1", "name": "副校长室" }, "s3": { "id": "huiyi", "name": "会议室" }, "s4": { "id": "chucang", "name": "储藏室", "kind": "storage" }, "s5": { "id": "fuxiao2", "name": "副校长室" }, "s6": { "id": "xiaozhang", "name": "校长室" }, "n1": { "id": "xingzheng", "name": "行政办公室" }, "n2": { "id": "gonghui", "name": "工会" }, "n3": { "id": "kaishui", "name": "开水间", "kind": "water" }, "n4": { "id": "jiedai", "name": "接待室" } } }
+      ],
+      "stairwells": [
+        { "id": "stair", "x": 11, "z": 4.15, "w": 8, "d": 5.7, "dir": "+x", "from": 1, "to": 4, "rail": "bars", "windows": "landing", "lamp": "sound" }
+      ]
+    },
+    {
+      "id": "LAB",
+      "name": "旧实验楼",
+      "x": -80,
+      "z": 140,
+      "w": 26,
+      "d": 14,
+      "color": "#9c8d7c", "material": "brick", "trim": "#a39a8a", "nightLit": 0.15, "nightRooms": [], "dayLit": false,
+      "facade": { "bay": 3.2, "width": 1.4, "sill": 1, "height": 1.6, "depth": 0.22, "margin": 1.6, "frame": "#6a6558" },
+      "entrances": [{ "side": "-z", "at": 0, "width": 2, "height": 2.5 }],
+      "parapet": 0.6,
+      "labNote": "快拆了：中走廊（z ±1.3）两侧各一排房间，隔墙落在窗间墙上（同旧办公楼 office 布局的切法）；1F 北排中间是暗室（窗被遮光板封死），楼梯间在东北角（门朝西）",
+      "floors": [
+        { "level": 1, "rooms": [
+          {"id": "hall", "name": "走廊", "kind": "corridor", "x": 0, "z": 0, "w": 25.52, "d": 2.6},
+          {"id": "lobby", "name": "门厅", "kind": "corridor", "x": 0, "z": -4.03, "w": 3.2, "d": 5.46},
+          {"id": "labS", "name": "化学实验室", "kind": "lab", "x": -7.18, "z": -4.03, "w": 11.16, "d": 5.46, "doors": [{"side": "+z", "at": -3.6, "width": 1.0, "height": 2.2}, {"side": "+z", "at": 3.6, "width": 1.0, "height": 2.2}]},
+          {"id": "prep", "name": "化学准备室", "kind": "prep", "x": 4.425, "z": -4.03, "w": 5.65, "d": 5.46, "doors": [{"side": "+z", "at": -1.7, "width": 1.0, "height": 2.2}]},
+          {"id": "wc", "name": "厕所", "kind": "toilet", "x": 10.005, "z": -4.03, "w": 5.51, "d": 5.46, "doors": [{"side": "+z", "at": -1.65, "width": 1.0, "height": 2.2}]},
+          {"id": "labN", "name": "物理实验室", "kind": "lab", "x": -7.555, "z": 4.03, "w": 10.41, "d": 5.46, "doors": [{"side": "-z", "at": -3.6, "width": 1.0, "height": 2.2}, {"side": "-z", "at": 3.6, "width": 1.0, "height": 2.2}]},
+          {"id": "dark", "name": "暗室", "kind": "darkroom", "x": 0, "z": 4.03, "w": 4.7, "d": 5.46, "doors": [{"side": "-z", "at": -1.25, "width": 0.9, "height": 2.2}]},
+          {"id": "hallE", "name": "走廊", "kind": "corridor", "x": 3.675, "z": 4.03, "w": 2.65, "d": 5.46}
+        ] },
+        { "level": 2, "rooms": [
+          {"id": "hall", "name": "走廊", "kind": "corridor", "x": 0, "z": 0, "w": 25.52, "d": 2.6},
+          {"id": "junk", "name": "杂物间", "kind": "storage", "x": 0, "z": -4.03, "w": 3.2, "d": 5.46, "doors": [{"side": "+z", "at": 0, "width": 0.9, "height": 2.2}]},
+          {"id": "labS", "name": "生物实验室", "kind": "lab", "x": -7.18, "z": -4.03, "w": 11.16, "d": 5.46, "doors": [{"side": "+z", "at": -3.6, "width": 1.0, "height": 2.2}, {"side": "+z", "at": 3.6, "width": 1.0, "height": 2.2}]},
+          {"id": "prep", "name": "生物准备室", "kind": "prep", "x": 4.425, "z": -4.03, "w": 5.65, "d": 5.46, "doors": [{"side": "+z", "at": -1.7, "width": 1.0, "height": 2.2}]},
+          {"id": "wc", "name": "厕所", "kind": "toilet", "x": 10.005, "z": -4.03, "w": 5.51, "d": 5.46, "doors": [{"side": "+z", "at": -1.65, "width": 1.0, "height": 2.2}]},
+          {"id": "labN", "name": "物理实验室", "kind": "lab", "x": -7.555, "z": 4.03, "w": 10.41, "d": 5.46, "doors": [{"side": "-z", "at": -3.6, "width": 1.0, "height": 2.2}, {"side": "-z", "at": 3.6, "width": 1.0, "height": 2.2}]},
+          {"id": "specimen", "name": "标本室", "kind": "prep", "x": 0, "z": 4.03, "w": 4.7, "d": 5.46, "doors": [{"side": "-z", "at": -1.25, "width": 0.9, "height": 2.2}]},
+          {"id": "hallE", "name": "走廊", "kind": "corridor", "x": 3.675, "z": 4.03, "w": 2.65, "d": 5.46}
+        ] },
+        { "level": 3, "rooms": [
+          {"id": "hall", "name": "走廊", "kind": "corridor", "x": 0, "z": 0, "w": 25.52, "d": 2.6},
+          {"id": "junk", "name": "杂物间", "kind": "storage", "x": 0, "z": -4.03, "w": 3.2, "d": 5.46, "doors": [{"side": "+z", "at": 0, "width": 0.9, "height": 2.2}]},
+          {"id": "labS", "name": "化学实验室", "kind": "lab", "x": -7.18, "z": -4.03, "w": 11.16, "d": 5.46, "doors": [{"side": "+z", "at": -3.6, "width": 1.0, "height": 2.2}, {"side": "+z", "at": 3.6, "width": 1.0, "height": 2.2}]},
+          {"id": "prep", "name": "仪器室", "kind": "prep", "x": 4.425, "z": -4.03, "w": 5.65, "d": 5.46, "doors": [{"side": "+z", "at": -1.7, "width": 1.0, "height": 2.2}]},
+          {"id": "wc", "name": "厕所", "kind": "toilet", "x": 10.005, "z": -4.03, "w": 5.51, "d": 5.46, "doors": [{"side": "+z", "at": -1.65, "width": 1.0, "height": 2.2}]},
+          {"id": "labN", "name": "实验室", "kind": "lab", "x": -7.555, "z": 4.03, "w": 10.41, "d": 5.46, "doors": [{"side": "-z", "at": -3.6, "width": 1.0, "height": 2.2}, {"side": "-z", "at": 3.6, "width": 1.0, "height": 2.2}]},
+          {"id": "store3", "name": "库房", "kind": "storage", "x": 0, "z": 4.03, "w": 4.7, "d": 5.46, "doors": [{"side": "-z", "at": -1.25, "width": 0.9, "height": 2.2}]},
+          {"id": "hallE", "name": "走廊", "kind": "corridor", "x": 3.675, "z": 4.03, "w": 2.65, "d": 5.46}
+        ] }
+      ],
+      "stairwells": [
+        { "id": "stair", "x": 9, "z": 4.15, "w": 8, "d": 5.7, "dir": "+x", "from": 1, "to": 3, "rail": "bars", "windows": "landing", "lamp": "sound" }
+      ]
+    },
+    {
+      "id": "LIB", "name": "图书馆", "x": 60, "z": 140, "w": 36, "d": 28,
+      "color": "#bfb6a0", "nightLit": 0.5, "nightRooms": [],
+      "facade": {"bay": 4, "width": 2.8, "sill": 0.8, "height": 2.1, "depth": 0.3, "margin": 2},
+      "entrances": [{"side": "-z", "at": 0, "width": 4, "height": 3}],
+      "libNote": "中厅 x∈[-8, 8] 落在窗间墙上（±z 墙窗洞 ±(4.6~7.4)、±(8.6~11.4)），两侧房间 9.76 m 宽；楼梯间 8 m 宽避开北墙窗",
+      "floors": [
+        { "level": -1, "rooms": [
+          {"id": "hall", "name": "前室", "kind": "corridor", "x": 0, "z": 7.38, "w": 16, "d": 12.76},
+          {"id": "stacks", "name": "密集书库", "kind": "compact", "x": 0, "z": -6.38, "w": 35.52, "d": 14.76, "doors": [{"side": "+z", "at": 0, "width": 1.6, "height": 2.4}]},
+          {"id": "storeW", "name": "库房", "kind": "storage", "x": -12.88, "z": 7.38, "w": 9.76, "d": 12.76, "doors": [{"side": "+x", "at": -3, "width": 1.2, "height": 2.2}]},
+          {"id": "storeE", "name": "配电间", "kind": "storage", "x": 12.88, "z": 7.38, "w": 9.76, "d": 12.76, "doors": [{"side": "-x", "at": -3, "width": 1.2, "height": 2.2, "key": "power"}]}
+        ] },
+        { "level": 1, "rooms": [
+          {"id": "lobby", "name": "门厅", "kind": "corridor", "x": 0, "z": 0, "w": 16, "d": 27.52},
+          {"id": "stacksW", "name": "中文书库", "kind": "stacks", "x": -12.88, "z": 0, "w": 9.76, "d": 27.52, "doors": [{"side": "+x", "at": -4, "width": 1.6, "height": 2.4}]},
+          {"id": "periodE", "name": "期刊阅览室", "kind": "reading", "x": 12.88, "z": 0, "w": 9.76, "d": 27.52, "doors": [{"side": "-x", "at": -4, "width": 1.6, "height": 2.4}]}
+        ] },
+        { "level": 2, "rooms": [
+          {"id": "hall", "name": "中厅", "kind": "corridor", "x": 0, "z": 7.38, "w": 16, "d": 12.76},
+          {"id": "readW", "name": "第一阅览室", "kind": "reading", "x": -12.88, "z": 0, "w": 9.76, "d": 27.52, "doors": [{"side": "+x", "at": 4, "width": 1.6, "height": 2.4}]},
+          {"id": "stacksE", "name": "外文书库", "kind": "stacks", "x": 12.88, "z": 0, "w": 9.76, "d": 27.52, "doors": [{"side": "-x", "at": 4, "width": 1.6, "height": 2.4}]},
+          {"id": "papers", "name": "报刊阅览室", "kind": "reading", "x": 0, "z": -6.38, "w": 16, "d": 14.76, "doors": [{"side": "+z", "at": -4.6, "width": 1.6, "height": 2.4}]}
+        ] },
+        { "level": 3, "rooms": [
+          {"id": "hall", "name": "中厅", "kind": "corridor", "x": 0, "z": 7.38, "w": 16, "d": 12.76},
+          {"id": "readW", "name": "社科阅览室", "kind": "reading", "x": -12.88, "z": 0, "w": 9.76, "d": 27.52, "doors": [{"side": "+x", "at": 4, "width": 1.6, "height": 2.4}]},
+          {"id": "net", "name": "网络中心机房", "kind": "server", "x": 12.88, "z": 0, "w": 9.76, "d": 27.52, "doors": [{"side": "-x", "at": 4, "width": 1.6, "height": 2.4, "key": "net"}]},
+          {"id": "old", "name": "过刊室", "kind": "stacks", "x": 0, "z": -6.38, "w": 16, "d": 14.76, "doors": [{"side": "+z", "at": -4.6, "width": 1.6, "height": 2.4}]}
+        ] }
+      ],
+      "stairwells": [
+        {"id": "stair", "x": 0, "z": 10.5, "w": 8, "d": 7, "dir": "+z", "from": -1, "to": 3}
+      ]
+    },
+    {
+      "id": "GYM",
+      "name": "体育馆",
+      "x": -100,
+      "z": 60,
+      "w": 36,
+      "d": 30,
+      "color": "#b0aa98", "nightLit": 0.25, "nightRooms": [], "enterable": true, "floorHeight": 10.8,
+      "facade": { "bay": 6, "width": 4.2, "sill": 6.4, "height": 3.0, "depth": 0.25, "margin": 3, "sides": ["+z", "-z"] },
+      "entrances": [{ "side": "+x", "at": 0, "width": 4, "height": 3, "canopy": { "out": 2.6, "side": 1.6, "gap": 0.5, "t": 0.32 } }],
+      "gymNote": "东门是唯一入口：加宽的雨棚（7.2 × 2.6 m），雨棚上方墙上「体育馆」三个立体字，门洞里两扇推拉铁栅门白天推到两边，门前一块水泥平台 + 擦鞋格栅、门边一块开放时间牌（world/gymfront.ts）；单层通高 10.8 m（高窗 6.4~9.4 m）；球场居中 26×14；器材室在西南角，门朝北开进 courtW",
+      "floors": [
+        { "level": 1, "rooms": [
+          {"id": "court", "name": "篮球馆", "kind": "court", "x": 4, "z": 0, "w": 27.52, "d": 29.52},
+          {"id": "courtW", "name": "篮球馆", "kind": "court", "x": -13.76, "z": 3, "w": 8, "d": 23.52},
+          {"id": "equip", "name": "器材室", "kind": "equip", "x": -13.76, "z": -11.76, "w": 8, "d": 6, "doors": [{"side": "+z", "at": 2, "width": 1.2, "height": 2.2, "key": "equip"}]}
+        ] }
+      ]
+    },
+    {
+      "id": "CAN",
+      "name": "食堂",
+      "x": 100,
+      "z": 60,
+      "w": 34,
+      "d": 24,
+      "color": "#c4b69a", "nightLit": 0.4, "nightRooms": ["1F.shop"],
+      "facade": { "bay": 4, "width": 3, "sill": 0.9, "height": 1.9, "depth": 0.2, "margin": 2 },
+      "entrances": [{ "side": "-z", "at": -6, "width": 3.2, "height": 2.8 }, { "side": "-x", "at": 0, "width": 3.2, "height": 2.8 }, { "side": "+z", "at": -8.9, "width": 1.3, "height": 2.3 }],
+      "canNote": "后门（+z at -8.9，后厨西头，送菜、倒泔水）通到楼后院；北侧一条 6.26 m 进深的带（隔墙 z=5.5、x=-10 / 10 都落在窗间墙上）：西头小卖部（2F 库房）、中间后厨（打饭窗口开在南隔墙上）、东头楼梯间；南边整片餐厅",
+      "floors": [
+        { "level": 1, "rooms": [
+          {"id": "dining", "name": "一楼餐厅", "kind": "dining", "x": 0, "z": -3.13, "w": 33.52, "d": 17.26},
+          {"id": "shop", "name": "小卖部", "kind": "shop", "x": -13.38, "z": 8.63, "w": 6.76, "d": 6.26, "doors": [{"side": "-z", "at": 1.6, "width": 1.0, "height": 2.2}], "windows": [{"side": "-z", "at": -1.5, "width": 1.8, "sill": 0.9, "height": 1.1}]},
+          {"id": "kitchen", "name": "后厨", "kind": "kitchen", "x": 0, "z": 8.63, "w": 20, "d": 6.26, "doors": [{"side": "-z", "at": 8.4, "width": 0.9, "height": 2.1}],
+            "windows": [{"side": "-z", "at": -6.6, "width": 1.6, "sill": 0.9, "height": 0.8}, {"side": "-z", "at": -2.8, "width": 1.6, "sill": 0.9, "height": 0.8}, {"side": "-z", "at": 1.0, "width": 1.6, "sill": 0.9, "height": 0.8}, {"side": "-z", "at": 4.8, "width": 1.6, "sill": 0.9, "height": 0.8}]}
+        ] },
+        { "level": 2, "rooms": [
+          {"id": "dining", "name": "二楼餐厅", "kind": "dining", "x": 0, "z": -3.13, "w": 33.52, "d": 17.26},
+          {"id": "store", "name": "库房", "kind": "storage", "x": -13.38, "z": 8.63, "w": 6.76, "d": 6.26, "doors": [{"side": "-z", "at": 1.6, "width": 1.0, "height": 2.2}]},
+          {"id": "kitchen", "name": "小炒部", "kind": "kitchen", "x": 0, "z": 8.63, "w": 20, "d": 6.26, "doors": [{"side": "-z", "at": 8.4, "width": 0.9, "height": 2.1}],
+            "windows": [{"side": "-z", "at": -4.7, "width": 1.6, "sill": 0.9, "height": 0.8}, {"side": "-z", "at": -0.9, "width": 1.6, "sill": 0.9, "height": 0.8}, {"side": "-z", "at": 2.9, "width": 1.6, "sill": 0.9, "height": 0.8}]}
+        ] }
+      ],
+      "stairwells": [
+        {"id": "stair", "x": 13.5, "z": 8.75, "w": 7, "d": 6.5, "dir": "+z", "from": 1, "to": 2}
+      ]
+    },
+    {
+      "id": "HALL",
+      "name": "礼堂",
+      "x": 100,
+      "z": 120,
+      "w": 30,
+      "d": 36,
+      "color": "#b9a78c", "nightLit": 0, "nightRooms": [], "dayLit": false, "enterable": true, "floorHeight": 10.8,
+      "facade": { "bay": 4.5, "width": 1.8, "sill": 1.6, "height": 4.6, "depth": 0.3, "margin": 3, "sides": ["+x", "-x"] },
+      "entrances": [{ "side": "-z", "at": 0, "width": 5, "height": 3, "canopy": { "out": 3.6, "side": 7.8, "gap": 1.0, "t": 0.5 } }],
+      "hallNote": "单层通高 10.8 m；南门是门廊（雨棚放大成 20.6 m × 3.6 m 的平顶，前沿四根方柱分三开间，两边开间正对侧门，world/hallfront.ts），廊下中间敞开的正门两侧各一樘锁着的双扇木门（对着两条纵过道，里外各一面门扇，墙不开洞），门廊上方墙上「礼堂」两个红色立体字，门廊两头外侧各一樘竖条高窗（同东西立面）；北头 9.76 m 是舞台（台面 1.1 m，台口墙 z=10~10.3、台口宽 16 m），南边整片观众席（坡地：前排落地，往后每排一级台阶高 0.08 m，最后一排后面一条走道，走道边是带栏杆的矮墙，两条纵过道各四级台阶下到后横过道，与南门同平；三块座席），台唇两端各一段台阶；台下是 2.8 m 的台仓（level -1），东侧台东北角一个楼梯间（x 10~15、z 12~18）下去，门朝南对着台口墙背面，门前台面挖一个坑（x 11.7~13.3、z 10.3~12，坑底即地面），坑西边一段台阶上台面；钢琴挪到西侧台",
+      "floors": [
+        { "level": -1, "h": 2.8, "rooms": [
+          {"id": "under", "name": "台仓", "kind": "understage", "x": 0, "z": 12.88, "w": 29.52, "d": 9.76}
+        ] },
+        { "level": 1, "rooms": [
+          {"id": "seats", "name": "观众席", "kind": "auditorium", "x": 0, "z": -4.88, "w": 29.52, "d": 25.76,
+           "windows": [{"side": "-z", "at": -13, "width": 1.8, "sill": 1.6, "height": 4.6, "depth": 0.3}, {"side": "-z", "at": 13, "width": 1.8, "sill": 1.6, "height": 4.6, "depth": 0.3}]},
+          {"id": "stage", "name": "舞台", "kind": "stage", "x": 0, "z": 12.88, "w": 29.52, "d": 9.76}
+        ] }
+      ],
+      "stairwells": [
+        {"id": "under", "x": 12.5, "z": 15, "w": 5, "d": 6, "dir": "+z", "from": -1, "to": 1, "cap": 2.8}
+      ]
+    },
+    {
+      "id": "BOIL",
+      "name": "锅炉房",
+      "x": 110,
+      "z": 190,
+      "w": 12,
+      "d": 10,
+      "color": "#7d7468", "material": "brick", "trim": "#8a857b", "nightLit": 0.2,
+      "enterable": true, "floorHeight": 7.2, "nightRooms": ["1F.boiler"], "nightTube": 0.6,
+      "facade": { "bay": 3, "width": 1.4, "sill": 3.4, "height": 2.4, "depth": 0.2, "margin": 1.5, "frame": "#5a564e", "glass": "#3f4446" },
+      "entrances": [{ "side": "-z", "at": -2.5, "width": 1.6, "height": 2.4 }],
+      "parapet": 0.5,
+      "boilNote": "单层通高 7.2 m（高窗 3.4~5.8 m）：一台停用的卧式锅炉东西向卧在北半边（炉门朝西，下炉门半开），西北角一撮落灰的旧煤渣和铁锹，西南角门边角色061堆的旧课桌椅、捆好的纸箱、拖把桶、扫帚，西墙靠一架竹梯，东南角软化水箱，门东边旧值班桌当工具桌；烟道从锅炉尾部上去穿北墙接屋后的砖烟囱；北墙西段煤渣东边一樘煤仓铁门（铁红，挂锁锁着，key coal，门后的煤仓不建，开了只见黑）",
+      "chimney": { "x": 1.5, "z": 5.75, "w": 1.5, "d": 1.5, "h": 18 },
+      "coalStore": { "x": -4.05, "z": 6.5, "w": 3.5, "d": 3, "h": 3 },
+      "floors": [
+        { "level": 1, "rooms": [
+          {"id": "boiler", "name": "锅炉间", "kind": "boiler", "x": 0, "z": 0, "w": 11.52, "d": 9.52,
+           "doors": [{"side": "+z", "at": -3.95, "width": 1.0, "height": 1.9, "key": "coal", "iron": true}]}
+        ] }
+      ]
+    }
+  ],
+  "bridgesNote": "连廊：A 东翼 ↔ B 西端（北走廊），2F、4F；两头各有同层同中线的连廊门（entrances level 2/4, at 4.25 = world z 84.25）",
+  "bridges": [
+    { "id": "bridge2", "name": "二层连廊", "between": ["A", "B"], "level": 2, "at": 84.25, "width": 3 },
+    { "id": "bridge4", "name": "四层连廊", "between": ["A", "B"], "level": 4, "at": 84.25, "width": 3 }
+  ]
+}

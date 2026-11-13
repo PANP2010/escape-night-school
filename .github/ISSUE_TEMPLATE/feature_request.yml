@@ -1,0 +1,33 @@
+name: 功能与关卡建议 / Feature or level suggestion
+description: 提出玩法、关卡、美术、联机或工具建议 / Suggest gameplay, chapters, art, multiplayer, or tools
+title: "[Feature] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        欢迎改进和二创方向。先搜索相似建议；独立 Fork 二创不需要等待此 Issue 获得批准。
+        Improvements and derivative ideas are welcome. Search for similar suggestions first; independent Forks do not need approval of this Issue.
+  - type: textarea
+    id: need
+    attributes:
+      label: 玩家需求或问题 / Player need or problem
+      description: 谁会在什么场景下需要这个改动？ / Who needs this change, and in what situation?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议的体验 / Proposed experience
+      description: 描述玩家会看到、听到或操作什么；新关卡请说明目标与通关条件 / Describe what players see, hear, or do; for a chapter, include the goal and completion conditions
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 影响范围与替代方案 / Scope and alternatives
+      description: 可选；考虑单人/多人、桌面/触控、指引与排行。也可以说明更小的方案。 / Optional; consider solo/multiplayer, desktop/touch, guidance, and rankings. Smaller alternatives are welcome.
+  - type: textarea
+    id: references
+    attributes:
+      label: 参考或参与意愿 / References or contribution
+      description: 可选；附草图、相关链接，或说明愿意贡献哪些部分。外部素材请注明来源和许可。 / Optional; add sketches, links, or what you would like to contribute. Identify sources and licenses for external assets.

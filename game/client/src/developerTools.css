@@ -1,0 +1,140 @@
+#developer-tools-open {
+  position: fixed;
+  top: calc(max(8px, env(safe-area-inset-top, 0px)) + 52px);
+  left: max(12px, env(safe-area-inset-left, 0px));
+  z-index: 80;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px dashed #cfbc86;
+  border-radius: 3px;
+  background: #15251eee;
+  color: #e8d7a9;
+  font: 500 14px/1.4 system-ui, sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+#developer-tools-open[hidden], #developer-tools:not([open]) { display: none; }
+
+#developer-tools {
+  --developer-chalk: #e8e4d8;
+  --developer-accent: #e8d7a9;
+  position: fixed;
+  inset: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  z-index: 160;
+  box-sizing: border-box;
+  width: min(700px, calc(100vw - max(12px, env(safe-area-inset-left, 0px)) - max(12px, env(safe-area-inset-right, 0px))));
+  max-width: none;
+  height: fit-content;
+  max-height: calc(100vh - max(12px, env(safe-area-inset-top, 0px)) - max(12px, env(safe-area-inset-bottom, 0px)));
+  max-height: calc(100dvh - max(12px, env(safe-area-inset-top, 0px)) - max(12px, env(safe-area-inset-bottom, 0px)));
+  margin: auto;
+  padding: 0 20px 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #c8cbb08c;
+  border-radius: 4px;
+  background: var(--dust, none), linear-gradient(150deg, #20392c, #102019 85%);
+  box-shadow: 0 0 0 4px #392f20, 0 18px 70px #000b;
+  color: var(--developer-chalk);
+  font: 14px/1.5 system-ui, sans-serif;
+  letter-spacing: 0;
+  text-align: left;
+  pointer-events: auto;
+  touch-action: pan-y;
+}
+
+#developer-tools::backdrop { background: #000b; }
+#developer-tools .developer-tools-heading {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0 12px;
+  border-bottom: 1px dashed #d1d8c74d;
+  background: #1c3126;
+}
+#developer-tools h2 {
+  margin: 0;
+  font-family: KaiTi, STKaiti, 'Kaiti SC', serif;
+  font-size: clamp(19px, 3.2vw, 25px);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 1px;
+  color: #ede6cc;
+}
+#developer-tools-description { margin: 12px 0; color: #c4cdbd; }
+#developer-tools .developer-tools-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 3px 16px;
+  padding: 9px 12px;
+  margin-bottom: 16px;
+  border-left: 2px solid #d4c38c;
+  background: #07180b66;
+  color: #d8ddcb;
+  font-variant-numeric: tabular-nums;
+}
+#developer-tools .developer-tools-status p { margin: 0; }
+#developer-tools-position { font-size: 13px; }
+#developer-tools .developer-tools-content { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
+#developer-tools fieldset { min-width: 0; margin: 0; padding: 8px 0 0; border: 0; border-top: 1px solid #e8e4d83b; }
+#developer-tools legend { padding: 0 12px 0 0; color: #cfdbc5; font-size: 14px; letter-spacing: 2px; }
+#developer-tools .developer-tools-levels, #developer-tools .developer-tools-movement { grid-column: 1 / -1; }
+#developer-tools .developer-tools-level-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+#developer-tools .developer-tools-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+#developer-tools .developer-tools-buttons:first-of-type { margin-top: 0; }
+#developer-tools :is(button, input) {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid #a9b59a80;
+  border-radius: 3px;
+  background: #102119;
+  color: var(--developer-chalk);
+  font: inherit;
+  touch-action: manipulation;
+}
+#developer-tools button { cursor: pointer; }
+#developer-tools .developer-tools-buttons button { flex: 1 1 110px; }
+#developer-tools .developer-tools-level-grid .current { border-color: #d7c486; border-style: dashed; color: var(--developer-accent); background: #d7c48617; }
+#developer-tools #developer-tools-close { flex-shrink: 0; border-color: #b8c5a3; background: #dce0c9; color: #17261b; }
+#developer-tools button:disabled { opacity: .45; cursor: default; }
+#developer-tools .developer-tools-note { margin: 8px 0 0; color: #b7c5b5; font-size: 12px; line-height: 1.6; }
+#developer-tools .developer-tools-coordinates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+#developer-tools .developer-tools-coordinates label { display: grid; gap: 5px; color: #ced8c7; }
+#developer-tools input { width: 100%; font-size: 16px; font-variant-numeric: tabular-nums; user-select: text; -webkit-user-select: text; }
+#developer-tools-notice { min-height: 1.5em; margin: 14px 0 0; color: var(--developer-accent); }
+#developer-tools .developer-tools-footer { margin: 8px 0 0; padding-top: 10px; border-top: 1px solid #e8e4d826; color: #b9c3b4; font-size: 12px; }
+#developer-tools-open:focus-visible, #developer-tools :is(button, input):focus-visible { outline: 2px solid #e9dca9; outline-offset: 3px; }
+
+body.developer-tools-open :is(#touch, #settings-open, #prompt, #crosshair, #hint, #map, #host-status) { visibility: hidden; }
+body.touch #developer-tools .developer-tools-note, body.touch #developer-tools .developer-tools-footer { font-size: 13px; }
+
+@media (max-width: 540px) {
+  #developer-tools { padding-inline: 14px; }
+  #developer-tools .developer-tools-content { grid-template-columns: 1fr; gap: 16px; }
+  #developer-tools .developer-tools-heading { gap: 8px; }
+  #developer-tools #developer-tools-close { padding-inline: 10px; font-size: 13px; }
+  #developer-tools h2 { font-size: 19px; letter-spacing: 0; }
+  #developer-tools .developer-tools-level-grid { gap: 6px; }
+  #developer-tools .developer-tools-level-grid button { padding-inline: 3px; }
+  #developer-tools .developer-tools-coordinates { gap: 8px; }
+}
+
+@media (max-height: 500px) and (min-width: 541px) {
+  #developer-tools .developer-tools-heading { padding-block: 8px; }
+  #developer-tools-description { margin-block: 8px; }
+  #developer-tools .developer-tools-status { margin-bottom: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) { #developer-tools, #developer-tools * { scroll-behavior: auto; } }

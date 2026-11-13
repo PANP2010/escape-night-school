@@ -1,0 +1,172 @@
+{
+  "started": "2026-11-07T10:19:44.152Z",
+  "cases": [
+    {
+      "label": "before",
+      "width": 667,
+      "height": 375,
+      "inset": 0,
+      "rows": [
+        {
+          "nx": -4,
+          "ny": -4,
+          "floating": true,
+          "arrow": {
+            "left": 165.0078125,
+            "right": 254.9921875,
+            "top": 236.6085662841797,
+            "bottom": 309.1875
+          },
+          "controls": [
+            {
+              "id": "touch-base",
+              "left": 150,
+              "right": 272,
+              "top": 220,
+              "bottom": 342
+            },
+            {
+              "id": "touch-btns",
+              "left": 483,
+              "right": 655,
+              "top": 249,
+              "bottom": 361
+            },
+            {
+              "id": "battery",
+              "left": 491.328125,
+              "right": 653,
+              "top": 180,
+              "bottom": 207
+            },
+            {
+              "id": "stamina",
+              "left": 543,
+              "right": 653,
+              "top": 176,
+              "bottom": 179
+            },
+            {
+              "id": "objective",
+              "left": 395,
+              "right": 657,
+              "top": 62,
+              "bottom": 167.53125
+            },
+            {
+              "id": "touch-map",
+              "left": 527,
+              "right": 583,
+              "top": 8,
+              "bottom": 52
+            },
+            {
+              "id": "touch-chat",
+              "left": 599,
+              "right": 655,
+              "top": 8,
+              "bottom": 52
+            }
+          ],
+          "angle": "-119",
+          "collisions": [
+            "touch-base"
+          ]
+        }
+      ],
+      "overlaps": [
+        {
+          "nx": -4,
+          "ny": -4,
+          "floating": true,
+          "collisions": [
+            "touch-base"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "after",
+      "width": 667,
+      "height": 375,
+      "inset": 0,
+      "rows": [
+        {
+          "nx": -4,
+          "ny": -4,
+          "floating": true,
+          "arrow": {
+            "left": 165.0078125,
+            "right": 254.9921875,
+            "top": 139.6085662841797,
+            "bottom": 212.1875
+          },
+          "controls": [
+            {
+              "id": "touch-base",
+              "left": 150,
+              "right": 272,
+              "top": 220,
+              "bottom": 342
+            },
+            {
+              "id": "touch-btns",
+              "left": 483,
+              "right": 655,
+              "top": 249,
+              "bottom": 361
+            },
+            {
+              "id": "battery",
+              "left": 491.328125,
+              "right": 653,
+              "top": 180,
+              "bottom": 207
+            },
+            {
+              "id": "stamina",
+              "left": 543,
+              "right": 653,
+              "top": 176,
+              "bottom": 179
+            },
+            {
+              "id": "objective",
+              "left": 395,
+              "right": 657,
+              "top": 62,
+              "bottom": 167.53125
+            },
+            {
+              "id": "touch-map",
+              "left": 527,
+              "right": 583,
+              "top": 8,
+              "bottom": 52
+            },
+            {
+              "id": "touch-chat",
+              "left": 599,
+              "right": 655,
+              "top": 8,
+              "bottom": 52
+            }
+          ],
+          "angle": "-119",
+          "collisions": []
+        }
+      ],
+      "overlaps": []
+    }
+  ],
+  "errors": [],
+  "beforeBench": {
+    "calls": 49,
+    "triangles": 47070
+  },
+  "afterBench": {
+    "calls": 49,
+    "triangles": 47214
+  },
+  "passed": true
+}

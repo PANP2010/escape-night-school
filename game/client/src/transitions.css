@@ -1,0 +1,25 @@
+/* Short visual handoff over the existing authoritative 3 s transition. */
+#fade-overlay.chapter-handoff {
+  position: fixed;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  box-sizing: border-box;
+  background: radial-gradient(ellipse at 50% 44%, #17271fee, #020704 80%);
+  animation: none;
+  pointer-events: none;
+  text-align: center;
+  letter-spacing: 2px;
+}
+#fade-overlay.chapter-handoff[hidden] { display: none; }
+#fade-overlay.chapter-handoff.wipe { background: #010201; }
+.handoff-kicker { color: #b4c7b9; font-size: 14px; letter-spacing: 4px; }
+.handoff-title { color: #f0ecdd; font-size: clamp(25px, 5vw, 42px); font-weight: 600; line-height: 1.45; letter-spacing: clamp(3px, 1vw, 9px); }
+.handoff-detail { max-width: 30em; color: #cbd5c7; font-size: clamp(14px, 2.3vw, 17px); line-height: 1.8; letter-spacing: 1px; }
+#fade-overlay.chapter-handoff.complete { white-space: pre-line; font-size: clamp(18px, 3vw, 28px); line-height: 1.8; }
+body.level-handoff #hud, body.level-handoff #touch, body.level-handoff #settings-open { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  #fade-overlay.chapter-handoff { animation: none; transition: none; }
+}

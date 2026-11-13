@@ -1,0 +1,21 @@
+/* Scent stays at the edge of the existing view, with no label or new game object. */
+#jasmine { overflow: hidden; }
+#jasmine::after {
+  content: '';
+  position: absolute;
+  inset: -7%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 25% 58% at 0% 32%, #f2d98a29, transparent 83%),
+    radial-gradient(ellipse 29% 54% at 100% 67%, #edd48029, transparent 83%),
+    radial-gradient(ellipse 60% 23% at 38% 0%, #f8e6a51a, transparent 84%),
+    radial-gradient(ellipse 54% 24% at 69% 100%, #efd98d21, transparent 84%);
+  opacity: calc(.5 + var(--jasmine-strength, 0) * .5);
+  animation: jasmine-drift 8s ease-in-out infinite alternate;
+}
+#jasmine[data-quality="low"]::after { animation-duration: 12s; }
+@keyframes jasmine-drift {
+  from { transform: translate3d(-1.2%, 1.5%, 0) rotate(-.5deg); }
+  to { transform: translate3d(1.4%, -1.8%, 0) rotate(.6deg); }
+}
+@media (prefers-reduced-motion: reduce) { #jasmine::after { animation: none; } }

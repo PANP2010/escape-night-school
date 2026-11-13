@@ -1,0 +1,54 @@
+name: 问题报告 / Bug report
+description: 报告游戏、联机、安装或性能问题 / Report gameplay, multiplayer, installation, or performance problems
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请先搜索已有 Issue。中英文均可；分享日志前去掉密码、令牌和个人信息。
+        Please search existing Issues first. Chinese or English is welcome; remove passwords, tokens, and personal information from logs.
+  - type: input
+    id: version
+    attributes:
+      label: 版本或提交号 / Version or commit
+      description: 安装包版本、网页显示版本或 git 提交号 / Installer version, web version, or git commit
+      placeholder: "0.6.0 / commit SHA"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 设备与连接方式 / Device and connection
+      description: 系统、设备、浏览器或客户端；云端/本地/局域网，及人数 / OS, device, browser or app; cloud/local/LAN and player count
+      placeholder: "Windows 11, Chrome; LAN, 2 players"
+    validations:
+      required: true
+  - type: textarea
+    id: game_mode
+    attributes:
+      label: 关卡与模式 / Chapter and mode
+      description: 关卡、难度、指引开关；是否开发房或使用过测试功能。不适用可写 N/A。 / Chapter, difficulty, guidance; developer room or test features used. Write N/A when irrelevant.
+      placeholder: "第五关 / Chapter 5; 夜巡 / Standard; guidance off; normal room"
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤 / Steps to reproduce
+      description: 从进入游戏开始，说明何时触发、是否每次发生；卡顿请说明操作和持续时间 / Start from entering the game; explain the trigger and frequency. For lag, describe the action and duration.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected_actual
+    attributes:
+      label: 预期与实际结果 / Expected and actual behavior
+      description: 你期望发生什么，实际发生了什么？ / What did you expect, and what happened?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 日志、截图或短视频 / Logs, screenshots, or short video
+      description: 可选；附相关错误、截图或视频，分享前检查隐私 / Optional; attach relevant errors, screenshots, or video after checking for private information

@@ -1,0 +1,8 @@
+{
+  "fadeSeconds": 6,
+  "cover": { "wetIn": 25, "wetOut": 150, "snowIn": 45, "snowOut": 240, "snow": "#f2f0ea" },
+  "kinds": {
+    "rain": { "sun": 0.2, "glow": 0.15, "disc": 0, "hemi": 0.85, "fog": 0.5, "grey": 0.75, "sky": 0.72, "ground": "#6f6c64", "groundMix": 0.55, "stars": 0 },
+    "snow": { "sun": 0.3, "glow": 0.2, "disc": 0, "hemi": 1.15, "fog": 0.42, "grey": 0.85, "sky": 1.08, "ground": "#b9b8b2", "groundMix": 0.35, "stars": 0 }
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "label": "before",
+  "build": "/private/tmp/escape-door-baseline-20261107",
+  "started": "2026-11-07T09:59:42.733Z",
+  "cases": [
+    {
+      "mobile": false,
+      "rtt": 150,
+      "door": 1,
+      "rows": [
+        {
+          "eventToSend": 0.5,
+          "eventToFirstVisual": 204.79999999701977,
+          "eventToPassable": 387.70000000298023,
+          "roundTrip": 188.70000000298023
+        },
+        {
+          "eventToSend": 0.09999999403953552,
+          "eventToFirstVisual": 208.5,
+          "eventToPassable": 391.40000000596046,
+          "roundTrip": 199.30000001192093
+        },
+        {
+          "eventToSend": 0.09999999403953552,
+          "eventToFirstVisual": 208.5,
+          "eventToPassable": 391.09999999403954,
+          "roundTrip": 198.40000000596046
+        },
+        {
+          "eventToSend": 0.09999999403953552,
+          "eventToFirstVisual": 190.59999999403954,
+          "eventToPassable": 373.70000000298023,
+          "roundTrip": 176.70000000298023
+        },
+        {
+          "eventToSend": 0.09999999403953552,
+          "eventToFirstVisual": 208.29999999701977,
+          "eventToPassable": 408.59999999403954,
+          "roundTrip": 197.40000000596046
+        }
+      ],
+      "summary": {
+        "eventToSend": {
+          "n": 5,
+          "p50": 0.09999999403953552,
+          "p95": 0.5
+        },
+        "eventToFirstVisual": {
+          "n": 5,
+          "p50": 208.29999999701977,
+          "p95": 208.5
+        },
+        "eventToPassable": {
+          "n": 5,
+          "p50": 391.09999999403954,
+          "p95": 408.59999999403954
+        },
+        "roundTrip": {
+          "n": 5,
+          "p50": 197.40000000596046,
+          "p95": 199.30000001192093
+        }
+      },
+      "errors": [],
+      "corrections": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "triangles": 47905
+    },
+    {
+      "mobile": false,
+      "rtt": 250,
+      "door": 1,
+      "rows": [
+        {
+          "eventToSend": 0.29999999701976776,
+          "eventToFirstVisual": 290.79999999701977,
+          "eventToPassable": 473.79999999701977,
+          "roundTrip": 284.20000000298023
+        },
+        {
+          "eventToSend": 0,
+          "eventToFirstVisual": 306.19999998807907,
+          "eventToPassable": 489.3999999910593,
+          "roundTrip": 298.3999999910593
+        },
+        {
+          "eventToSend": 0.09999999403953552,
+          "eventToFirstVisual": 305.70000000298023,
+          "eventToPassable": 504.09999999403954,
+          "roundTrip": 303.70000000298023
+        },
+        {
+          "eventToSend": 0,
+          "eventToFirstVisual": 306.20000000298023,
+          "eventToPassable": 489.70000000298023,
+          "roundTrip": 298.29999999701977
+        },
+        {
+          "eventToSend": 0,
+          "eventToFirstVisual": 307,
+          "eventToPassable": 490.09999999403954,
+          "roundTrip": 300.69999998807907
+        }
+      ],
+      "summary": {
+        "eventToSend": {
+          "n": 5,
+          "p50": 0,
+          "p95": 0.29999999701976776
+        },
+        "eventToFirstVisual": {
+          "n": 5,
+          "p50": 306.19999998807907,
+          "p95": 307
+        },
+        "eventToPassable": {
+          "n": 5,
+          "p50": 489.70000000298023,
+          "p95": 504.09999999403954
+        },
+        "roundTrip": {
+          "n": 5,
+          "p50": 298.3999999910593,
+          "p95": 303.70000000298023
+        }
+      },
+      "errors": [],
+      "corrections": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "triangles": 47869
+    },
+    {
+      "mobile": true,
+      "rtt": 150,
+      "door": 1,
+      "rows": [
+        {
+          "eventToSend": 0.29999999701976776,
+          "eventToFirstVisual": 193.79999999701977,
+          "eventToPassable": 377.09999999403954,
+          "roundTrip": 185.59999999403954
+        },
+        {
+          "eventToSend": 0,
+          "eventToFirstVisual": 214.29999999701977,
+          "eventToPassable": 397.5,
+          "roundTrip": 200.79999999701977
+        },
+        {
+          "eventToSend": 0.20000000298023224,
+          "eventToFirstVisual": 181.70000000298023,
+          "eventToPassable": 381.5,
+          "roundTrip": 174
+        },
+        {
+          "eventToSend": 0.19999998807907104,
+          "eventToFirstVisual": 182.19999998807907,
+          "eventToPassable": 364.69999998807907,
+          "roundTrip": 174.30000001192093
+        },
+        {
+          "eventToSend": 0.09999999403953552,
+          "eventToFirstVisual": 182.09999999403954,
+          "eventToPassable": 365.29999999701977,
+          "roundTrip": 175.5
+        }
+      ],
+      "summary": {
+        "eventToSend": {
+          "n": 5,
+          "p50": 0.19999998807907104,
+          "p95": 0.29999999701976776
+        },
+        "eventToFirstVisual": {
+          "n": 5,
+          "p50": 182.19999998807907,
+          "p95": 214.29999999701977
+        },
+        "eventToPassable": {
+          "n": 5,
+          "p50": 377.09999999403954,
+          "p95": 397.5
+        },
+        "roundTrip": {
+          "n": 5,
+          "p50": 175.5,
+          "p95": 200.79999999701977
+        }
+      },
+      "errors": [],
+      "corrections": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "triangles": 52616
+    },
+    {
+      "mobile": true,
+      "rtt": 250,
+      "door": 1,
+      "rows": [
+        {
+          "eventToSend": 0.20000000298023224,
+          "eventToFirstVisual": 297.70000000298023,
+          "eventToPassable": 481.70000000298023,
+          "roundTrip": 292.40000000596046
+        },
+        {
+          "eventToSend": 0.10000000894069672,
+          "eventToFirstVisual": 282.20000000298023,
+          "eventToPassable": 465.1000000089407,
+          "roundTrip": 276
+        },
+        {
+          "eventToSend": 0,
+          "eventToFirstVisual": 282.40000000596046,
+          "eventToPassable": 464.79999999701977,
+          "roundTrip": 275.40000000596046
+        },
+        {
+          "eventToSend": 0,
+          "eventToFirstVisual": 281.90000000596046,
+          "eventToPassable": 481.40000000596046,
+          "roundTrip": 276.79999999701977
+        },
+        {
+          "eventToSend": 0,
+          "eventToFirstVisual": 313.6000000089407,
+          "eventToPassable": 497.30000001192093,
+          "roundTrip": 298.40000000596046
+        }
+      ],
+      "summary": {
+        "eventToSend": {
+          "n": 5,
+          "p50": 0,
+          "p95": 0.20000000298023224
+        },
+        "eventToFirstVisual": {
+          "n": 5,
+          "p50": 282.40000000596046,
+          "p95": 313.6000000089407
+        },
+        "eventToPassable": {
+          "n": 5,
+          "p50": 481.40000000596046,
+          "p95": 497.30000001192093
+        },
+        "roundTrip": {
+          "n": 5,
+          "p50": 276.79999999701977,
+          "p95": 298.40000000596046
+        }
+      },
+      "errors": [],
+      "corrections": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "triangles": 52698
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

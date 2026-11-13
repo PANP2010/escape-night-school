@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'">
+  <title>逃离夜校</title>
+  <link rel="stylesheet" href="chalk.css">
+  <link rel="stylesheet" href="launcher.css">
+</head>
+<body>
+  <main id="launcher" class="chalk-board">
+    <header class="cover-stamp"><span>NIGHT SCHOOL</span><span id="version">午夜 · 零时</span></header>
+    <section class="hero">
+      <h1>逃离夜校</h1>
+      <p class="sub">午夜 00:00 · 找到同学，一起离开</p>
+      <p class="description">灯熄之后，熟悉的校园有了另一套规则。<br>带上手电，找到线索，和同伴一起走出去。</p>
+      <div class="actions"><button id="enter" type="button"><span>进入校园</span><small>连接云端或局域网房主 · 建房或加入同学的教室</small><b aria-hidden="true">→</b></button></div>
+      <p id="status" role="status" aria-live="polite"></p>
+      <details>
+        <summary>联机服务器</summary>
+        <label for="endpoint">服务器地址</label>
+        <input id="endpoint" type="url" spellcheck="false" value="http://154.217.245.217:4100">
+        <p>同一 Wi-Fi 下，填写电脑「局域网开房」显示的朋友加入地址（含端口），再加入同一房间码。</p>
+      </details>
+    </section>
+    <footer><span>建议佩戴耳机 <i>·</i> 横屏游玩 <i>·</i> 返回键可离开校园</span><button id="quit" type="button">退出游戏</button></footer>
+  </main>
+  <script src="launcher.js"></script>
+</body>
+</html>

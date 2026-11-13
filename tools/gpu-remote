@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+GPU_NODE=$1
+shift
+GPU_ROOT=/home/ubuntu/escape-gpu
+mkdir -p "$GPU_ROOT/game"
+cd "$GPU_ROOT/game"
+
+# Replace source, retain only dependency caches. Deleted local files must disappear remotely too.
+find . -mindepth 1 -maxdepth 1 ! -name node_modules -exec rm -rf -- {} +
+tar -xzf /home/ubuntu/escape-gpu-game.tar.gz
+mkdir -p test-results
+exec > >(tee test-results/gpu-run.log) 2>&1
+echo "gpu: remote started $(date -u +%FT%TZ)"
+
+export DEBIAN_FRONTEND=noninteractive
+if [[ ! -x $GPU_ROOT/node-$GPU_NODE/bin/node ]]; then
+  sudo env DEBIAN_FRONTEND=noninteractive apt-get update -qq
+  sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ca-certificates curl xz-utils
+  # Official distribution, pinned to the invoking host's exact version, checksum verified.
+  GPU_DIST="node-$GPU_NODE-linux-x64"
+  curl --fail --location --retry 2 --connect-timeout 15 --max-time 180 \
+    "https://nodejs.org/dist/$GPU_NODE/$GPU_DIST.tar.xz" -o "$GPU_ROOT/node.tar.xz"
+  curl --fail --location --retry 2 --connect-timeout 15 --max-time 60 \
+    "https://nodejs.org/dist/$GPU_NODE/SHASUMS256.txt" -o "$GPU_ROOT/SHASUMS256.txt"
+  (cd "$GPU_ROOT"; awk -v file="$GPU_DIST.tar.xz" '$2 == file { print $1 "  node.tar.xz" }' SHASUMS256.txt | sha256sum --check --strict)
+  tar -xJf "$GPU_ROOT/node.tar.xz" -C "$GPU_ROOT"
+  mv "$GPU_ROOT/$GPU_DIST" "$GPU_ROOT/node-$GPU_NODE"
+  rm "$GPU_ROOT/node.tar.xz" "$GPU_ROOT/SHASUMS256.txt"
+fi
+export PATH="$GPU_ROOT/node-$GPU_NODE/bin:$PATH"
+[[ $(node -v) == "$GPU_NODE" ]]
+
+GPU_DEPS=$({ echo "$GPU_NODE"; cat package.json package-lock.json .npmrc; } | sha256sum | cut -d' ' -f1)
+if [[ ! -d node_modules || ! -f $GPU_ROOT/deps.sha || $(cat "$GPU_ROOT/deps.sha") != "$GPU_DEPS" ]]; then
+  npm ci --no-audit --no-fund
+  echo "$GPU_DEPS" > "$GPU_ROOT/deps.sha"
+fi
+GPU_PLAYWRIGHT=$(node -p "require('@playwright/test/package.json').version")
+if [[ ! -f $GPU_ROOT/playwright.version || $(cat "$GPU_ROOT/playwright.version") != "$GPU_PLAYWRIGHT" ]]; then
+  npx playwright install --with-deps chromium
+  echo "$GPU_PLAYWRIGHT" > "$GPU_ROOT/playwright.version"
+fi
+
+export ESC_GPU=1
+unset ESC_SOFTWARE_GL
+echo "gpu: node=$(node -v); playwright=$GPU_PLAYWRIGHT"
+nvidia-smi --query-gpu=name,driver_version --format=csv,noheader | tee test-results/gpu-device.txt
+# Refuse software fallback before running any supplied acceptance command.
+node tests/gpu-acceptance.mjs --renderer-only
+npm run build
+GPU_STARTED=$SECONDS
+set +e
+"$@"
+GPU_RESULT=$?
+set -e
+echo "gpu: command exit=$GPU_RESULT elapsed=$((SECONDS - GPU_STARTED))s" | tee test-results/gpu-command-summary.txt
+exit "$GPU_RESULT"

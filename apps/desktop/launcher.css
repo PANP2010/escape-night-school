@@ -1,0 +1,6 @@
+:root { color-scheme: dark; font-synthesis: none; background: #101b17; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; overflow: hidden; }
+button, input, summary { font: inherit; }
+
+#lan-panel{max-width:440px;padding:16px;margin:0;border:1px solid #657c64;border-radius:4px;background:#102019;color:#cbd4c8;font-size:12px}#lan-panel[hidden]{display:none}#lan-panel h2{font-size:16px;margin:0 0 10px}#lan-panel p{line-height:1.7;margin:8px 0}#lan-addresses label{display:block;margin-top:10px}#lan-addresses .address-row{display:flex;gap:8px;margin-top:5px}#lan-addresses input{min-width:0;flex:1;background:#081510;color:#e8e4d8;border:1px solid #51684f;padding:9px;font-size:12px}#lan-panel button{min-height:36px;border:1px solid #80987c;background:#1c3526;color:#e8e4d8;border-radius:3px;padding:7px 10px}.lan-controls{display:flex;gap:8px;margin-top:12px}#lan-warning{color:#e3c992}

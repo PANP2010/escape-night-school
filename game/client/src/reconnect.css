@@ -1,0 +1,9 @@
+#reconnect-status { position: fixed; z-index: 1200; inset: 0; display: grid; place-content: center; gap: 12px; padding: 24px; text-align: center; color: #e8e4d8; background: rgb(4 12 11 / 78%); font: 16px/1.6 sans-serif; touch-action: none; }
+#reconnect-status[hidden], #host-change[hidden], #host-status[hidden] { display: none; }
+#reconnect-status strong { font-size: clamp(20px, 3vw, 28px); }
+#reconnect-status p { margin: 0; }
+/* Keep the host below the settings entry, within the left HUD column. */
+#host-status { position: absolute; top: calc(96px + env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); box-sizing: border-box; max-width: min(31vw, 260px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 4px 8px; color: #e8e4d8; background: rgb(7 20 17 / 75%); border: 1px solid #7f8979; font: 13px/1.5 sans-serif; pointer-events: none; }
+body:has(#game-settings[open]) #host-status { visibility: hidden; }
+#hud:has(#host-status:not([hidden])) #broadcast-status { top: calc(132px + env(safe-area-inset-top)); }
+#host-change { position: fixed; z-index: 1100; left: 50%; top: max(12px, env(safe-area-inset-top)); transform: translateX(-50%); max-width: calc(100vw - 32px); box-sizing: border-box; padding: 8px 16px; color: #e8e4d8; background: #10251f; border: 1px solid #93a38e; font: 15px/1.5 sans-serif; text-align: center; pointer-events: none; overflow-wrap: anywhere; }

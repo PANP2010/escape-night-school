@@ -1,0 +1,32 @@
+.monitor-murmur {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: max(136px, calc(env(safe-area-inset-bottom) + 110px));
+  width: max-content;
+  max-width: min(78%, 550px);
+  padding: 8px 26px;
+  color: #ddd9cd;
+  background: linear-gradient(90deg, transparent, #090e0bc2 18% 82%, transparent);
+  font: 19px/1.8 "Songti SC", "Noto Serif CJK SC", "SimSun", serif;
+  letter-spacing: 2px;
+  text-align: center;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+  text-shadow: 0 1px 3px #000, .3px 0 #dfddd666;
+  transform: translateX(-50%);
+  animation: monitor-letter-tremble .27s steps(2, jump-none) infinite;
+}
+.monitor-murmur[hidden] { display: none; }
+@keyframes monitor-letter-tremble {
+  0%, 100% { transform: translate(-50%, 0); }
+  30% { transform: translate(calc(-50% + .45px), -.35px); }
+  70% { transform: translate(calc(-50% - .4px), .3px); }
+}
+@media (max-height: 500px) {
+  .monitor-murmur { bottom: max(106px, calc(env(safe-area-inset-bottom) + 90px)); font-size: 15px; line-height: 1.6; padding: 5px 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .monitor-murmur { animation: none; }
+}

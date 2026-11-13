@@ -1,0 +1,123 @@
+#settings-open {
+  position: fixed;
+  top: max(8px, env(safe-area-inset-top, 0px));
+  left: max(12px, env(safe-area-inset-left, 0px));
+  z-index: 33;
+  box-sizing: border-box;
+  min-width: 64px;
+  min-height: 44px;
+  margin: 0;
+  padding: 8px 14px;
+  border: 1px solid #d5dfc970;
+  border-radius: 4px;
+  background: #102019ef;
+  color: var(--chalk, #e8e4d8);
+  font: 500 14px/1.4 system-ui, sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+/* Keep the room code readable to the right of the new safe-area entry. */
+body:has(#settings-open) #room-code { left: calc(max(12px, env(safe-area-inset-left, 0px)) + 80px); }
+
+#game-settings {
+  --settings-chalk: #e8e4d8;
+  --settings-accent: #94d4af;
+  position: fixed;
+  inset: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  z-index: 150;
+  box-sizing: border-box;
+  height: fit-content;
+  width: min(620px, calc(100vw - max(12px, env(safe-area-inset-left, 0px)) - max(12px, env(safe-area-inset-right, 0px))));
+  max-width: none;
+  max-height: calc(100vh - max(12px, env(safe-area-inset-top, 0px)) - max(12px, env(safe-area-inset-bottom, 0px)));
+  max-height: calc(100dvh - max(12px, env(safe-area-inset-top, 0px)) - max(12px, env(safe-area-inset-bottom, 0px)));
+  margin: auto;
+  padding: 0 22px 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #bcc7ad8c;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #1e3329, #102019 80%);
+  color: var(--settings-chalk);
+  box-shadow: 0 0 0 4px #342b20, 0 20px 70px #000a;
+  font: 15px/1.5 system-ui, sans-serif;
+  letter-spacing: 0;
+  text-align: left;
+  pointer-events: auto;
+  touch-action: pan-y;
+}
+
+#game-settings::backdrop { background: #000b; }
+#game-settings:not([open]) { display: none; }
+#game-settings .settings-heading {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0 12px;
+  background: #1a2e24;
+  border-bottom: 1px solid #d1d8c733;
+}
+#game-settings h2 { margin: 0; font-size: clamp(21px, 3vw, 27px); font-weight: 600; letter-spacing: 3px; }
+#game-settings #settings-description { margin: 12px 0 18px; color: #ccd3c7; font-size: 14px; }
+#game-settings .settings-content { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 22px; }
+#game-settings fieldset { min-width: 0; margin: 0; padding: 10px 0 0; border: 0; border-top: 1px solid #e8e4d83b; }
+#game-settings fieldset:first-child { grid-column: 1 / -1; }
+#game-settings legend { padding: 0 12px 0 0; color: #bdcfbc; font-size: 14px; letter-spacing: 2px; }
+#game-settings .settings-range-label { display: flex; justify-content: space-between; gap: 12px; padding-top: 2px; }
+#game-settings output { color: var(--settings-accent); font-variant-numeric: tabular-nums; }
+#game-settings input[type="range"] {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  accent-color: var(--settings-accent);
+  cursor: pointer;
+  touch-action: none;
+}
+#game-settings .settings-check { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; }
+#game-settings input[type="checkbox"] { width: 20px; height: 20px; margin: 0; accent-color: var(--settings-accent); }
+#game-settings .settings-select { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; min-height: 44px; }
+#game-settings select, #game-settings button {
+  box-sizing: border-box;
+  min-height: 44px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #9eae9780;
+  border-radius: 4px;
+  background: #0d1c15;
+  color: var(--settings-chalk);
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+#game-settings #settings-close { flex-shrink: 0; border-color: #abc5a9; background: #d9e0cb; color: #18271c; }
+#game-settings .settings-note { margin: 5px 0 8px; font-size: 13px; color: #bcc8b9; line-height: 1.5; }
+#game-settings .settings-footer { margin: 18px 0 0; padding-top: 12px; border-top: 1px solid #e8e4d826; font-size: 13px; color: #d5ba9c; }
+#settings-open:focus-visible, #game-settings :is(button, input, select):focus-visible { outline: 2px solid #b6ecc9; outline-offset: 3px; }
+
+body.touch #game-settings :is(.settings-note, .settings-footer) { font-size: 14px; }
+
+@media (max-width: 540px) {
+  #game-settings { padding-inline: 16px; }
+  #game-settings .settings-content { grid-template-columns: 1fr; }
+  #game-settings .settings-heading { gap: 10px; }
+  #game-settings h2 { letter-spacing: 1px; }
+  #game-settings #settings-close { padding-inline: 10px; }
+}
+
+@media (max-height: 500px) and (min-width: 541px) {
+  #game-settings { width: min(740px, calc(100vw - max(12px, env(safe-area-inset-left, 0px)) - max(12px, env(safe-area-inset-right, 0px)))); padding-bottom: 12px; }
+  #game-settings .settings-heading { padding-block: 8px; }
+  #game-settings #settings-description { margin-block: 8px; }
+  #game-settings .settings-content { grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  #game-settings fieldset:first-child { grid-column: auto; }
+  #game-settings .settings-footer { margin-top: 10px; padding-top: 8px; }
+}

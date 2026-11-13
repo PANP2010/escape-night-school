@@ -1,0 +1,210 @@
+/* Mount directly in document.body: #hud's stacking context sits below the touch look zones. */
+.story-view {
+  position: fixed;
+  inset: 0;
+  z-index: 32;
+  pointer-events: none;
+  color: #f5f0df;
+  font: 16px/1.65 "Noto Sans SC", "WenQuanYi Zen Hei", system-ui, sans-serif;
+  text-shadow: none;
+}
+
+.story-view *, .story-view *::before, .story-view *::after { box-sizing: border-box; }
+.story-view [hidden] { display: none !important; }
+
+.story-view__toggle, .story-view__close, .story-view__filter, .story-view__read {
+  min-height: 44px;
+  padding: 7px 12px;
+  border: 1px solid #c7d5b5;
+  border-radius: 4px;
+  background: #173329;
+  color: #fff8e6;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 700;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: #c6e7c533;
+}
+
+.story-view__toggle {
+  position: absolute;
+  top: calc(max(10px, env(safe-area-inset-top)) + 34px);
+  left: calc(max(12px, env(safe-area-inset-left)) + 118px);
+  min-width: 94px;
+  max-width: 164px;
+  box-shadow: 0 2px 8px #0009;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.story-view__read {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  max-width: min(220px, 50vw);
+  border-color: #ddd6ad9e;
+  background: #17231ced;
+  color: #f0e8cb;
+  box-shadow: 0 2px 12px #0009;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.story-view__read::after { content: ' [E]'; color: #a9c6ae; font-size: 12px; }
+body.touch .story-view__read::after { content: ''; }
+
+.story-view__toast {
+  position: absolute;
+  top: calc(max(10px, env(safe-area-inset-top)) + 94px);
+  left: max(12px, env(safe-area-inset-left));
+  display: -webkit-box;
+  width: min(300px, calc(100vw - 28px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+  max-height: 90px;
+  margin: 0;
+  padding: 7px 10px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  border: 1px solid #aec9a06b;
+  border-left: 3px solid #b4e4a5;
+  border-radius: 4px;
+  background: #0d201bef;
+  color: #f1f5df;
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+
+body.touch .story-view__toast {
+  width: 140px;
+  max-height: max(0px, calc(100vh - 208px - max(10px, env(safe-area-inset-top)) - 94px));
+  max-height: max(0px, calc(100dvh - 208px - max(10px, env(safe-area-inset-top)) - 94px));
+  padding: 6px 8px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.story-view__toggle.is-open { background: #e6e5cf; color: #15271f; }
+.story-view__toggle:hover, .story-view__close:hover, .story-view__filter:hover, .story-view__read:hover { border-color: #fff8e6; }
+.story-view :focus-visible { outline: 3px solid #a4efbf; outline-offset: 3px; }
+
+.story-view__panel {
+  position: absolute;
+  top: calc(max(10px, env(safe-area-inset-top)) + 94px);
+  left: max(12px, env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  width: min(390px, calc(100vw - 28px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+  max-height: calc(100vh - 126px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  max-height: calc(100dvh - 126px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  overflow: hidden;
+  border: 1px solid #b9c9ac;
+  border-radius: 6px;
+  background: #0d201bf7;
+  box-shadow: 0 5px 24px #000b;
+  pointer-events: auto;
+  text-align: left;
+  user-select: text;
+  -webkit-user-select: text;
+  touch-action: pan-y;
+}
+
+.story-view__header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px 0;
+}
+
+.story-view__title { margin: 0; color: #fff8e6; font-size: 19px; line-height: 1.4; letter-spacing: 2px; }
+.story-view__close { flex: 0 0 auto; min-width: 76px; background: #243c31; }
+.story-view__help { flex: 0 0 auto; margin: 5px 12px 9px; color: #d9e3d0; font-size: 14px; line-height: 1.5; }
+.story-view__scroll {
+  min-height: 0;
+  padding: 0 14px 16px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: #a9b6a0 #11251c;
+  scrollbar-width: thin;
+}
+
+.story-view__chapter { margin: 3px 0 12px; color: #aeefc7; font-size: 17px; line-height: 1.5; }
+.story-view__label { margin: 12px 0 3px; color: #d6e4cd; font-size: 14px; line-height: 1.5; font-weight: 700; }
+.story-view__recap, .story-view__lead, .story-view__text { margin: 0; font-size: 16px; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+.story-view__lead { color: #f6e5af; }
+.story-view__notice { margin: 12px 0 0; padding: 8px 10px; border-left: 3px solid #cce5a4; background: #e2efc812; color: #eff5dd; font-size: 15px; line-height: 1.65; white-space: pre-wrap; }
+.story-view__count { margin: 18px 0 4px; padding-top: 12px; border-top: 1px solid #b5c6a74d; color: #e5ecd9; font-size: 15px; line-height: 1.5; }
+.story-view__filters { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 8px; }
+.story-view__filter { flex: 0 0 auto; padding: 7px 10px; font-size: 14px; letter-spacing: 0; }
+.story-view__filter[aria-pressed="true"] { border-color: #e6edce; background: #e6e5cf; color: #15271f; }
+.story-view__result { flex: 1 0 auto; margin: 0; color: #d0dbca; font-size: 14px; line-height: 1.5; }
+.story-view__entry { margin-top: 13px; padding-top: 12px; border-top: 1px solid #b5c6a733; }
+.story-view__entry:first-child { border-top: 0; padding-top: 0; }
+.story-view__entry-chapter { margin: 0 0 3px; color: #aeefc7; font-size: 14px; line-height: 1.5; }
+.story-view__entry-title { margin: 0; color: #fff8e6; font-size: 17px; line-height: 1.55; }
+.story-view__source { margin: 3px 0 7px; color: #d0dbca; font-size: 14px; line-height: 1.6; }
+.story-view__empty { margin: 12px 0 0; color: #d9e3d0; font-size: 15px; line-height: 1.7; }
+
+/* Keep the passive notice on the room-code row, clear of sound settings and L4's broadcast. */
+body:has(.story-view) #update-available.in-session {
+  top: max(10px, env(safe-area-inset-top));
+  left: max(calc(max(12px, env(safe-area-inset-left)) + 202px), calc(50vw - 130px));
+  width: 260px;
+}
+body:has(#update-available.in-session:not([hidden])) .story-view__toast { display: none; }
+body.level-handoff .story-view,
+body:has(#map:not([hidden])) .story-view,
+body:has(#broadcast-keypad:not([hidden])) .story-view,
+body:has(#fade-overlay.complete:not([hidden])) .story-view { visibility: hidden; }
+
+@media (max-height: 500px) {
+  /* The room tag now includes run settings; keep notices below it and the host label. */
+  body:has(.story-view) #update-available.in-session {
+    top: calc(max(10px, env(safe-area-inset-top)) + 122px);
+    left: max(12px, env(safe-area-inset-left));
+    width: 140px;
+  }
+  /* Broadcast clues own this column while their chapter is active. */
+  body:has(#broadcast-status:not([hidden])) #update-available.in-session { visibility: hidden; }
+  /* A phone's middle-left column leaves its thumb stick, goal and right-hand pads exposed. */
+  .story-view__toggle.is-open { visibility: hidden; }
+  .story-view__panel {
+    top: max(10px, env(safe-area-inset-top));
+    left: max(160px, calc(env(safe-area-inset-left) + 148px));
+    width: min(360px, calc(100vw - 468px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+    max-height: calc(100vh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+  .story-view__header { padding-top: 5px; }
+  .story-view__help { margin-top: 3px; margin-bottom: 7px; }
+}
+
+@media (max-width: 660px) and (max-height: 500px) {
+  .story-view__title { font-size: 17px; letter-spacing: 1px; }
+  .story-view__header { gap: 6px; padding-left: 10px; padding-right: 10px; }
+  .story-view__close { min-width: 54px; padding-left: 6px; padding-right: 6px; font-size: 13px; }
+}
+
+@media (max-width: 540px) and (max-height: 500px) {
+  /* On very small landscape screens, give the notebook enough room for complete lines. */
+  .story-view__panel {
+    left: 50%;
+    width: min(330px, calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+    transform: translateX(-50%);
+  }
+  body:has(#update-available.in-session:not([hidden])) .story-view__panel {
+    top: max(10px, env(safe-area-inset-top));
+    left: max(160px, calc(env(safe-area-inset-left) + 148px));
+    width: calc(100vw - 172px - env(safe-area-inset-left) - env(safe-area-inset-right));
+    max-height: calc(100vh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    transform: none;
+  }
+}

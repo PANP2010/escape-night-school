@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Only the designated, already provisioned acceptance machine is ever addressed.
+set -Eeuo pipefail
+GPU_TOOLS=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+GPU_GAME=$(cd -- "$GPU_TOOLS/../game" && pwd)
+export PATH=/root/.local/share/compshare-venv/bin:$PATH
+
+usage() { echo 'Usage: tools/gpu status | stop | run -- <command> [args...]' >&2; exit 2; }
+GPU_ACTION=${1:-}
+case $GPU_ACTION in
+  status|stop) [[ $# == 1 ]] || usage ;;
+  run) [[ $# -ge 3 && $2 == -- ]] || usage
+    shift 2
+    # 31 minutes including cold setup, then at most 8 minutes for cleanup (<40 min).
+    exec timeout --foreground --signal=TERM --kill-after=480s 1860 "$GPU_TOOLS/gpu" __run "$@" ;;
+  __run) shift ;;
+  *) usage ;;
+esac
+
+# Never pass credentials as arguments, copy them, or enable shell tracing here.
+set +x
+. /root/.config/compshare/env
+gpu_api() { python3 "$GPU_TOOLS/gpu-api.py" "$@"; }
+case $GPU_ACTION in
+  status) gpu_api status; exit ;;
+  stop) gpu_api stop; exit ;;
+esac
+
+exec 9>/tmp/escape-gpu-uhost-1xl0i3stj2qh.lock
+flock -n 9 || { echo 'gpu: another run owns this machine' >&2; exit 1; }
+GPU_TMP=$(mktemp -d)
+GPU_REMOTE_READY=0
+GPU_CHILD=
+cleanup() {
+  local result=$?
+  trap - EXIT
+  # Once cleanup has started, finish retrieving diagnostics and confirming shutdown.
+  # The outer timeout still supplies the final SIGKILL deadline.
+  trap '' INT TERM HUP
+  if [[ -n $GPU_CHILD ]]; then kill -TERM "$GPU_CHILD" 2>/dev/null || true; fi
+  if [[ $GPU_REMOTE_READY == 1 ]]; then
+    # A failed command must still return its diagnostics; a transfer failure must fail the run.
+    if ! gpu_api ssh-short 'tar -czf /home/ubuntu/escape-gpu-results.tar.gz -C /home/ubuntu/escape-gpu/game test-results' ||
+       ! gpu_api cp :/home/ubuntu/escape-gpu-results.tar.gz "$GPU_TMP/results.tar.gz"; then
+      echo 'gpu: could not retrieve test-results' >&2
+      [[ $result != 0 ]] || result=1
+    else
+      mkdir -p "$GPU_GAME/test-results"
+      tar -xzf "$GPU_TMP/results.tar.gz" -C "$GPU_GAME" || result=1
+    fi
+  fi
+  gpu_api stop || result=1
+  rm -rf -- "$GPU_TMP"
+  exit "$result"
+}
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+trap 'exit 129' HUP
+
+GPU_NODE=$(node -v)
+[[ $GPU_NODE =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo 'gpu: invalid local Node version' >&2; exit 1; }
+gpu_api start
+gpu_api ready
+source "$GPU_TOOLS/gpu-seed"
+gpu_seed_browsers
+
+# Send the working tree, including uncommitted source, but never build/cache/results or credentials.
+tar -czf "$GPU_TMP/game.tar.gz" -C "$GPU_GAME" \
+  --exclude=node_modules --exclude='dist*' --exclude=test-results --exclude='.green*' \
+  --exclude='.release-*' --exclude=.cache --exclude=playwright-report --exclude=.git .
+gpu_api cp "$GPU_TMP/game.tar.gz" :/home/ubuntu/escape-gpu-game.tar.gz
+gpu_api cp "$GPU_TOOLS/gpu-remote" :/home/ubuntu/escape-gpu-remote
+gpu_api ssh 'mkdir -p /home/ubuntu/escape-gpu/game/test-results'
+GPU_REMOTE_READY=1
+
+# Preserve exact argv (spaces, newlines, quotes, shell metacharacters) without eval locally.
+GPU_COMMAND=$(python3 - "$GPU_NODE" "$@" <<'PY'
+import shlex, sys
+print(shlex.join(['bash', '/home/ubuntu/escape-gpu-remote', *sys.argv[1:]]))
+PY
+)
+gpu_api ssh "$GPU_COMMAND" &
+GPU_CHILD=$!
+wait "$GPU_CHILD"
+GPU_CHILD=

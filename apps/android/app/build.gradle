@@ -1,0 +1,31 @@
+plugins { id 'com.android.application' }
+def releaseProperties = new Properties()
+def releaseFile = rootProject.file('release.properties')
+if (releaseFile.exists()) releaseFile.withInputStream { releaseProperties.load(it) }
+android {
+    namespace 'game.escapenightschool.app'
+    compileSdk 35
+    buildFeatures { buildConfig true }
+    defaultConfig {
+        applicationId 'game.escapenightschool.app'
+        minSdk 26
+        targetSdk 35
+        versionCode releaseProperties.getProperty('versionCode', '60301').toInteger()
+        versionName releaseProperties.getProperty('versionName', '0.6.3')
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    signingConfigs {
+        release {
+            if (System.getenv('ESCAPE_ANDROID_KEYSTORE')) {
+                storeFile file(System.getenv('ESCAPE_ANDROID_KEYSTORE'))
+                storePassword System.getenv('ESCAPE_ANDROID_STORE_PASSWORD')
+                keyAlias 'escape-night-school'
+                keyPassword System.getenv('ESCAPE_ANDROID_KEY_PASSWORD')
+            }
+        }
+    }
+    buildTypes {
+        release { minifyEnabled false; signingConfig signingConfigs.release }
+    }
+    androidResources { noCompress += ['br', 'gz'] }
+}

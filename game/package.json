@@ -1,0 +1,35 @@
+{
+  "name": "escape-night-school",
+  "private": true,
+  "version": "0.6.3",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build:client && node --watch server/index.ts",
+    "dev:client": "vite",
+    "build": "npm run build:client && npm run build:server && npm run build:nav",
+    "build:client": "vite build && node scripts/precompress.ts",
+    "build:server": "vite build --config vite.server.config.ts",
+    "build:nav": "node dist-server/index.js --build-nav",
+    "start": "node dist-server/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "check": "tsc --noEmit && vitest run && npm run build && playwright test -c playwright.gate.config.ts && node scripts/stage-green.ts --from-check",
+    "stage-green": "node scripts/stage-green.ts",
+    "verify-deploy": "node scripts/verify-deploy.ts"
+  },
+  "dependencies": {
+    "three": "0.186.1",
+    "ws": "8.22.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "22.20.5",
+    "@types/three": "0.186.0",
+    "@types/ws": "8.18.2",
+    "typescript": "5.9.3",
+    "vite": "8.3.4",
+    "vitest": "5.0.4"
+  }
+}

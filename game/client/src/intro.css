@@ -1,0 +1,30 @@
+#intro-overlay {
+  position: fixed; inset: 0; z-index: 50; display: grid; place-items: center;
+  box-sizing: border-box; overflow: hidden; touch-action: none; overscroll-behavior: none; user-select: none; -webkit-user-select: none; color: #eeeadd;
+  padding: max(30px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(76px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  background: linear-gradient(#000c, transparent 16%, transparent 79%, #000d);
+}
+#intro-overlay[hidden] { display: none; }
+.intro-veil { position: absolute; inset: 0; background: #020604; opacity: 1; pointer-events: none; }
+.intro-card { position: relative; max-width: min(920px, 92vw); text-align: center; padding: 22px 34px; background: radial-gradient(ellipse, #0c1b14cc, #0c1b1477 62%, transparent 75%); }
+.intro-kicker { margin: 0 0 18px; color: #b2c7b5; font-size: 13px; letter-spacing: 9px; }
+#intro-title { margin: 0; font-family: KaiTi, STKaiti, 'Kaiti SC', serif; font-size: clamp(26px, 5.3vw, 58px); font-weight: 600; line-height: 1.5; letter-spacing: .13em; color: #f1ecdc; text-shadow: 1px 1px #fff3, -1px 0 #a4b5a433; }
+#intro-title::after { content: ''; display: block; width: 72%; height: 2px; margin: 18px auto; background: linear-gradient(90deg, transparent, #d9e0c9bb 15%, #d9e0c999 84%, transparent); transform: rotate(-.4deg); }
+#intro-objective { margin: 0; color: #d8dfcf; font-size: clamp(15px, 2.3vw, 21px); letter-spacing: 2px; line-height: 1.7; }
+#intro-skip { position: absolute; right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); min-height: 48px; min-width: 112px; padding: 10px 22px; border: 1px solid #cadac580; border-radius: 3px; background: #10241ee6; color: #eeeadd; font: inherit; font-size: 15px; letter-spacing: 2px; cursor: pointer; touch-action: manipulation; }
+#intro-skip[hidden] { display: none; }
+#intro-skip:focus-visible { outline: 2px solid #b9f4cb; outline-offset: 4px; }
+#intro-wait { position: absolute; left: 24px; right: 24px; bottom: max(30px, env(safe-area-inset-bottom)); margin: 0; text-align: center; font-size: 16px; line-height: 1.8; letter-spacing: 2px; }
+body.intro-active #hud, body.intro-active #touch, body.intro-active #map, body.intro-active #settings-open, body.intro-active #broadcast-keypad { visibility: hidden; }
+/* The intro owns chapter copy through its transparent beats and the handoff's final cleanup. */
+body.intro-active #fade-overlay.chapter-handoff, #fade-overlay.chapter-handoff.revealing { visibility: hidden; }
+body.intro-active #update-available { z-index: 60; visibility: visible; }
+@media (max-height: 500px) {
+  .intro-card { padding: 12px 20px; max-width: 76vw; }
+  .intro-kicker { margin-bottom: 10px; font-size: 12px; }
+  #intro-title { font-size: clamp(24px, 4.2vw, 38px); }
+  #intro-title::after { margin: 10px auto; }
+  #intro-objective { font-size: 15px; }
+  #intro-skip { right: max(18px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); }
+}
+@media (prefers-reduced-motion: reduce) { #intro-overlay, #intro-overlay * { animation: none !important; transition: none !important; } }

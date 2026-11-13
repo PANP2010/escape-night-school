@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <title>逃离夜校</title>
+  <link rel="stylesheet" href="chalk.css">
+  <link rel="stylesheet" href="launcher.css">
+</head>
+<body>
+  <main id="launcher" class="chalk-board">
+    <header class="cover-stamp"><span>NIGHT SCHOOL</span><span id="version">午夜 · 零时</span></header>
+    <section class="hero">
+      <h1>逃离夜校</h1>
+      <p class="sub">午夜 00:00 · 找到同学，一起离开</p>
+      <p class="description">灯熄之后，熟悉的校园有了另一套规则。<br>带上手电，找到线索，和同伴一起走出去。</p>
+      <div class="actions">
+        <button id="solo" type="button"><span>本地游玩</span><small>无需联网 · 内置游戏服务</small><b aria-hidden="true">↗</b></button>
+        <button id="lan" type="button"><span>局域网开房</span><small>同一 Wi-Fi 的电脑和手机一起玩</small><b aria-hidden="true">＋</b></button>
+        <button id="online" type="button"><span>在线组队</span><small>和朋友进入同一个房间</small><b aria-hidden="true">→</b></button>
+      </div>
+      <p id="status" role="status" aria-live="polite"></p>
+      <section id="lan-panel" hidden aria-label="局域网房间"><h2>邀请同一 Wi-Fi 的朋友</h2><p>朋友在浏览器打开下方地址，或填进 Android 的服务器地址；再输入你创建的房间码。</p><div id="lan-addresses"></div><p id="lan-warning"></p><div class="lan-controls"><button id="host-play">房主进入校园</button><button id="host-stop">关闭局域网服务</button></div><p>关闭游戏窗口或退出应用会结束服务。仅同一局域网可用；如无法连接，请允许系统的局域网和防火墙访问。</p></section>
+      <details>
+        <summary>联机服务器</summary>
+        <label for="endpoint">服务器地址</label>
+        <input id="endpoint" type="url" spellcheck="false" value="http://154.217.245.217:4100">
+        <p>默认连接公开服务器，也可填写房主显示的 http://192.168.x.x:端口 等局域网地址。</p>
+      </details>
+    </section>
+    <footer><span>建议佩戴耳机 <i>·</i> F11 切换全屏 <i>·</i> Esc 释放鼠标</span><button id="quit" type="button">退出游戏</button></footer>
+  </main>
+  <script src="launcher.js"></script>
+</body>
+</html>

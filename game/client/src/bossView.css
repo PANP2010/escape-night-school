@@ -1,0 +1,4 @@
+#role_boss-warning { position: fixed; left: max(12px, env(safe-area-inset-left)); top: calc(max(12px, env(safe-area-inset-top)) + 90px); width: min(270px, 40vw); box-sizing: border-box; padding: 8px 11px; border: 2px dashed #e7c8a0; border-radius: 3px; background: #202c28eb; color: #ffdfac; font: 700 15px/1.5 sans-serif; text-align: center; z-index: 3; pointer-events: none; white-space: pre-line; }
+#role_boss-warning[hidden] { display: none; }
+body.touch #role_boss-warning { top: calc(max(8px, env(safe-area-inset-top)) + 98px); width: min(240px, 43vw); font-size: 13px; padding: 6px 8px; }
+body:has(#map:not([hidden])) #role_boss-warning, body.intro-active #role_boss-warning, body:has(#fade-overlay:not([hidden])) #role_boss-warning { visibility: hidden; }

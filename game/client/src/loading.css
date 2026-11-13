@@ -1,0 +1,12 @@
+#campus-loading {
+  position: fixed; inset: 0; z-index: 70;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
+  box-sizing: border-box; padding: 24px;
+  color: #e8e4d8; background: radial-gradient(ellipse at 50% 44%, #17271f, #020704 80%);
+  text-align: center; pointer-events: auto;
+}
+#campus-loading[hidden] { display: none; }
+#campus-loading .loading-title { font-size: clamp(24px, 5vw, 36px); letter-spacing: 6px; }
+#campus-loading .loading-detail { color: #b4c7b9; font-size: 15px; line-height: 1.6; }
+#campus-loading progress { width: min(320px, 70vw); height: 7px; accent-color: #91bba0; }
+body.campus-loading #hud, body.campus-loading #touch, body.campus-loading #settings-open { visibility: hidden; }

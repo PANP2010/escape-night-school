@@ -1,0 +1,22 @@
+/* 意见箱: same chalk-on-slate language as the records dialogs. */
+#feedback-dialog { width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); box-sizing: border-box; overflow: auto; padding: 22px; color: #e8e4d8; background: var(--slate, #172820); border: 1px solid #c7d5bb80; border-radius: 4px; box-shadow: 0 12px 60px #0009; font: 15px/1.7 system-ui, sans-serif; touch-action: pan-y; overscroll-behavior: contain; }
+#feedback-dialog::backdrop { background: #020807ba; }
+#feedback-dialog header { display: flex; align-items: center; justify-content: space-between; gap: 14px; border-bottom: 1px dashed #bdcdb455; padding-bottom: 12px; }
+#feedback-dialog h2 { margin: 0; font-size: 23px; letter-spacing: 3px; }
+#feedback-dialog button { min-width: 64px; min-height: 44px; font: inherit; color: #dce8d0; background: #233e30; border: 1px solid #a4c39b88; border-radius: 3px; cursor: pointer; }
+#feedback-dialog :focus-visible { outline: 2px solid #b6ebc6; outline-offset: 3px; }
+#feedback-form { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.feedback-label { display: block; font-size: 13px; letter-spacing: 1px; color: #e4ddc7; }
+#feedback-kind, #feedback-name, #feedback-contact, #feedback-text { box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 10px; font: inherit; font-size: 16px; color: #e6ead6; background: #193128; border: 1px solid #b8cfad66; border-radius: 2px; }
+#feedback-text { min-height: 92px; resize: vertical; line-height: 1.6; }
+#feedback-name, #feedback-contact { font-size: 15px; }
+.feedback-counter { margin: -2px 0 4px; text-align: right; font-size: 12px; color: #b9c8b0; font-variant-numeric: tabular-nums; }
+.feedback-status { min-height: 1.6em; margin: 4px 0 0; font-size: 13px; color: #b9c8b0; overflow-wrap: anywhere; }
+.feedback-status[data-state="ok"] { color: #c8dca3; }
+.feedback-status[data-state="error"] { color: #ff9c8b; }
+.feedback-actions { display: flex; justify-content: flex-end; }
+#feedback-submit { min-width: 120px; color: #213023; background: #c9d5ae; border-color: #e0e8c7; font-weight: 600; }
+#feedback-submit:disabled { opacity: .55; cursor: wait; }
+.feedback-note { margin: 12px 0 0; padding-top: 10px; border-top: 1px dashed #bdcdb455; font-size: 12px; line-height: 1.6; color: #a9b3a3; }
+@media (max-width: 620px) { #feedback-dialog { padding: 14px; } }
+@media (max-height: 500px) { #feedback-dialog { max-height: calc(100dvh - 16px); padding: 12px 14px; } #feedback-text { min-height: 58px; } #feedback-dialog header { padding-bottom: 8px; } #feedback-dialog h2 { font-size: 19px; } }

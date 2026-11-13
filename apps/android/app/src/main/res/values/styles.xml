@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="launch_background">#101B17</color>
+    <color name="icon_background">#D8CEB7</color>
+    <style name="BaseAppTheme" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:colorAccent">#D8CEB7</item>
+        <item name="android:navigationBarColor">@color/launch_background</item>
+        <item name="android:statusBarColor">@color/launch_background</item>
+    </style>
+    <style name="AppTheme" parent="BaseAppTheme" />
+</resources>

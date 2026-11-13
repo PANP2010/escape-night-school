@@ -1,0 +1,13 @@
+{
+  "note": "中轴梧桐（world/trees.ts）。season：按游戏日（day 0 = 9月1日）插值的关键帧；crown = 两种树冠色（sRGB），turn = 已换成第二种颜色的树冠簇比例（逐簇硬切换，不是渐变，调色板抖动不会糊成灰）；fill = 还挂着叶子的树冠簇比例（其余缩成零）；fall = 飘落叶片比例；litter = 地面落叶比例。chapterDay：每幕（序~尾声）季节至少走到第几天，用 ?chapter= 单独跳幕时树也对得上。",
+  "chapterDay": [0, 0, 42, 63, 84, 105, 119, 119],
+  "season": [
+    { "day": 0,   "crown": ["#9c9c56", "#b8a048"], "turn": 0.2,  "fill": 1,    "fall": 0.08, "litter": 0.06 },
+    { "day": 35,  "crown": ["#bba84c", "#d2ae48"], "turn": 0.55, "fill": 1,    "fall": 0.3,  "litter": 0.3 },
+    { "day": 56,  "crown": ["#d2b04e", "#b88a3c"], "turn": 0.35, "fill": 0.92, "fall": 0.75, "litter": 0.65 },
+    { "day": 77,  "crown": ["#a37a36", "#7d5c36"], "turn": 0.55, "fill": 0.6,  "fall": 1,    "litter": 1 },
+    { "day": 98,  "crown": ["#7d5c36", "#5f4b38"], "turn": 0.5,  "fill": 0.22, "fall": 0.45, "litter": 0.8 },
+    { "day": 116, "crown": ["#5f4b38", "#5f4b38"], "turn": 0,    "fill": 0,    "fall": 0,    "litter": 0.3 },
+    { "day": 126, "crown": ["#5f4b38", "#5f4b38"], "turn": 0,    "fill": 0,    "fall": 0,    "litter": 0 }
+  ]
+}
